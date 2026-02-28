@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #mymap  { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+
+<body>
+
+    <!-- Mapbox layout tag -->
+    <div id="mymap"></div>
+    
+    <!-- Mapbox code -->
+    <script type="text/javascript"> 
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+        const map = new mapboxgl.Map({
+            container: 'mymap',
+            style: "mapbox://styles/nyamato/cl71sppai002314qsnu3kya1g",
+            zoom: 11,
+            center: [-0.12808341534292772, 51.50814953830896],
+        });
+
+        map.setMaxZoom(13);
+        map.setMaxPitch(60)
+        
+        // tyo facilities map
+        map.on('load', function () {
+
+            
+            //##### 緑地 / Green coverage #####//
+            // Add a source for the city polygons.
+            map.addSource('greenareas', {
+                'type': 'raster',
+                'url': 'mapbox://nyamato.6tx2kscg'
+            });
+
+            // Add a layer showing the city polygons.
+            map.addLayer({
+                'id': '緑地 / Green areas',
+                'type': 'raster',
+                'source': 'greenareas',
+                'layout': {
+                    'visibility': 'visible'
+                },
+            });
+
+        });
+        
+        
+        map.addControl(new mapboxgl.NavigationControl());
+            
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Document</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<!-- mapbox -->   
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+    .popup-content {
+        font-size: 16px;
+    }
+
+    /* ===== sidebar =====*/
+    #sidebar {
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    width: auto;
+    padding: 20px;
+    }
+
+    .indicator-title{
+        color: white;
+        font-size: 50px;
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h1 class="indicator-title">国際線旅客者数</h1>
+        <p style="font-size: small; color: white;">出典: 国土交通省 東京航空局・大阪航空局 </p>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+            zoom: 5, // starting zoom
+            center: [138.29058267382655, 37.58725360866509],
+        });
+
+        map.on('load', () => {
+
+            //##### 指標データ #####//
+            map.addSource('airports', {
+                type: 'geojson',
+                // Use a URL for the value for the `data` property.
+                data: './geojson/airports.geojson' 
+            });
+
+            map.addLayer({
+                'id': 'airports-layer',
+                'type': 'circle',
+                'source': 'airports',
+                'paint': {
+                    // Adjust circle radius based on the 'radius' property in the GeoJSON file
+                    'circle-radius': [
+                        'interpolate', 
+                        ['linear'], 
+                        ['get', '国際線旅客者数'], 
+                        0, 1,  // Minimum value (1) maps to a circle radius of 2
+                        16312020, 32 // Maximum value (10) maps to a circle radius of 20
+                    ],
+                    'circle-stroke-width': 1,
+                    'circle-color': 'blue',
+                    'circle-stroke-color': 'white'
+                }
+            });
+
+            //##### Pop up 機能 #####//
+            // Create a popup, but don't add it to the map yet.
+            const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+            });
+            
+            map.on('mouseenter', 'airports-layer', (e) => {
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = 'pointer';
+            
+            // Copy coordinates array.
+            const coordinates = e.features[0].geometry.coordinates.slice();      
+            const univ_name = e.features[0].properties["空港名"];
+            const num_airports = e.features[0].properties["国際線旅客者数（万人）"];
+            
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates).setHTML(`<div class="popup-content">
+                <strong>${univ_name}</strong><br>
+                国際線旅客者数: ${num_airports}万人
+            </div>`).addTo(map);
+            });
+
+            map.on('mouseleave', 'airports-layer', () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+            });
+
+            //##### Navigation Control #####//
+            map.addControl(new mapboxgl.NavigationControl());
+
+        });
+
+
+    </script>
+
+</body>
+</html>

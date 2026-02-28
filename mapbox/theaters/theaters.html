@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Load data from an external GeoJSON file</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<!-- mapbox -->   
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+/* ===== sidebar =====*/
+#sidebar {
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    width: auto;
+    padding: 20px;
+  }
+  
+.indicator-title{
+    color: white;
+    font-size: 50px;
+}
+
+  /* ===== fly to menu =====*/
+  #fly {
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    z-index: 1;
+  }
+  
+  #fly select {
+    width: 300px;
+    height: 50px;
+    font-size: large;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <h1 class="indicator-title">劇場・コンサートホール</h1>
+    <form id="fly">
+        <!-- Select a city to fly to -->
+        <select name="select">
+            <option value="fly-tyo">Tokyo</option>
+            <option value="fly-nyc">New York</option>
+            <option value="fly-lon">London</option>
+            <option value="fly-par">Paris</option>
+            <option value="fly-sin">Singapore</option>
+        </select>
+    </form>    
+</div>
+
+<div id="map"></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/satellite-v9',
+        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+        zoom: 11, // starting zoom
+        center: [139.7527758040573, 35.68535529255434] // starting center
+    });
+
+    map.on('load', () => {
+
+        //##### 指標データ #####//
+        map.addSource('theaters', {
+            type: 'geojson',
+            // Use a URL for the value for the `data` property.
+            data: './geojson/theaters_2020.geojson' 
+        });
+
+        map.addLayer({
+            'id': 'theaters-layer',
+            'type': 'circle',
+            'source': 'theaters',
+            'paint': {
+                'circle-radius': 5,
+                'circle-stroke-width': 1,
+                'circle-color': 'blue',
+                'circle-stroke-color': 'white'
+            }
+        });
+
+        //##### 半径 5-10km データ #####//
+        map.addSource('radius', {
+            type: 'geojson',
+            // Use a URL for the value for the `data` property.
+            data: '../geojson_common/radius_5-10km.geojson' 
+        });
+
+        map.addLayer({
+            'id': 'radius-layer',
+            'type': 'line',
+            'source': 'radius',
+            'paint': {
+                'line-color': 'yellow',
+            }
+        });
+
+        //##### Fly to 機能 #####//
+        document.getElementById("fly").select.onchange = function() {
+            var target = document.getElementById("fly").select.value;
+            console.log(target)
+
+            switch (target) {
+                    case "fly-tyo":
+                        map.flyTo({
+                            center: [139.7527758040573, 35.68535529255434],
+                            zoom: 11,
+                            essential: true
+                        });
+                        break;
+                    case "fly-nyc":
+                        map.flyTo({
+                            center: [-73.98554260298089, 40.7581534610924],
+                            zoom: 11,
+                            essential: true
+                        });
+                        break;
+                    case "fly-lon":
+                        map.flyTo({
+                            center: [-0.1280757371601969, 51.508110075964964],
+                            zoom: 11,
+                            essential: true
+                        });
+                        break;
+                    case "fly-par":
+                        map.flyTo({
+                            center: [2.3553137, 48.8809481],
+                            zoom: 11,
+                            essential: true
+                        });
+                        break;
+                    case "fly-sin":
+                        map.flyTo({
+                            center: [103.8513365, 1.2830173],
+                            zoom: 11,
+                            essential: true
+                        });
+                        break;
+                }
+        };
+
+        //##### Pop up 機能 #####//
+        // Create a popup, but don't add it to the map yet.
+        const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
+        
+        map.on('mouseenter', 'theaters-layer', (e) => {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+        
+        // Copy coordinates array.
+        const coordinates = e.features[0].geometry.coordinates.slice();      
+        const description = e.features[0].properties.Theatre_name;
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        });
+        
+        map.on('mouseleave', 'theaters-layer', () => {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+        });
+
+        //##### Navigation Control #####//
+        map.addControl(new mapboxgl.NavigationControl());
+
+    });
+
+
+</script>
+
+</body>
+</html>

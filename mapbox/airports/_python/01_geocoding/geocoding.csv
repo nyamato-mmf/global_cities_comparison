@@ -1,0 +1,81 @@
+﻿番号,空港名,住所,国際線旅客者数,国際線旅客者数（万人）,住所2,lat,lon
+1,新千歳空港,北海道千歳市美々,1567891,156,"New Chitose Airport (CTS), Bibi, Chitose, Hokkaido 066-0012, Japan",42.7791317,141.6866364
+2,旭川空港,北海道上川郡東神楽町東２線１６−９８,19768,1,"Asahikawa Arpt, 2 Sen-16-98 Higashi, Higashikagura, Kamikawa District, Hokkaido 071-1562, Japan",43.6715448,142.4468435
+3,稚内空港,北海道稚内市声問村声問６７４４,0,0,"Wakkanai Airport, Koetoi-6744 Koetoimura, Wakkanai, Hokkaido 098-6643, Japan",45.3996593,141.7973887
+4,釧路空港,北海道釧路市鶴丘 2番地,0,0,"Kushiro Airport, 2 Tsuruoka, Kushiro, Hokkaido 084-0926, Japan",43.0450955,144.1962856
+5,帯広空港,北海道帯広市泉町西９線中8-41,0,0,"Tokachi-Obihiro Airport, Nishi 9 Sen-中８-４１ Izumichō, Obihiro, Hokkaido 089-1245, Japan",42.7312617,143.2177738
+6,函館空港,北海道函館市高松町５１１,40948,4,"Hakodate Airport, 511 Takamatsuchō, Hakodate, Hokkaido 042-0952, Japan",41.7757043,140.8158222
+7,利尻空港,北海道利尻郡利尻富士町鴛泊本泊１１４３番地,0,0,"Rishiri Airport, Motodomari-１１４３番地 Oshidomari, Rishirifuji, Rishiri District, Hokkaido 097-0101, Japan",45.2439929,141.1841251
+8,奥尻空港,北海道奥尻郡奥尻町米岡１８５−２,0,0,"Okushiri Airport (OIR), Yoneoka-185-2, Okushiri, Okushiri District, Hokkaido 043-1524, Japan",42.0726055,139.4355968
+9,中標津空港,北海道標津郡中標津町北中１６−９,0,0,"Nakashibetsu Airport, 16-9 Kitanaka, Nakashibetsu, Shibetsu District, Hokkaido 086-1145, Japan",43.5728738,144.9561562
+10,紋別空港,北海道紋別市小向19番地3,0,0,"Monbetsu Airport, 19-3 Komukai, Mombetsu, Hokkaido 099-6132, Japan",44.306398,143.4068361
+11,女満別空港,北海道網走郡大空町女満別中央２０１−３,0,0,"Memanbetsu Airport, 201-3 Memanbetsuchūō, Ozora, Abashiri District, Hokkaido 099-2371, Japan",43.8816455,144.1585847
+12,仙台空港,宮城県名取市下増田南原,215606,21,"Sendai Airport (SDJ), Minamihara-無番地 Shimomasuda, Natori, Miyagi 989-2401, Japan",38.1399076,140.9171138
+13,秋田空港,秋田県秋田市雄和椿川山籠４９,0,0,"Akita Airport (AXT), Yamagomori-４９ Yūwatsubakigawa, Akita, 010-1211, Japan",39.6144778,140.2177165
+14,山形空港,山形県東根市羽入 柏原新林３００８,4254,0,"Japan, 〒999-3776 Yamagata, Higashine, Hanyū, 柏原新林３００８ Yamagata Airport (GAJ)",38.4122393,140.3703441
+15,青森空港,青森県青森市大谷小谷１−５,5468,0,"Aomori Airport, Kotani-1-5 Ōtani, Aomori, 030-0155, Japan",40.7354587,140.6904126
+16,花巻空港,岩手県花巻市東宮野目第２地割 53番地,19029,1,"Iwate Hanamaki Airport, 53番地 Dai 2 Chiwari Higashimiyanome, Hanamaki, Iwate 025-0003, Japan",39.4214468,141.1385489
+17,大館能代空港,秋田県北秋田市脇神苔岱２１−１４４,0,0,"Ōdate-Noshiro Airport, Karamushitai-21-144 Wakigami, Kitaakita, Akita 018-3454, Japan",40.193892,140.3721343
+18,庄内空港,山形県酒田市市浜 中字村東30-3,606,0,"Japan, 〒998-0112 Yamagata, Sakata, 市浜中字村東30-3 Shonai Airport",38.815831,139.7876746
+19,福島空港,福島県石川郡玉川村北須釜鏃田２１,4003,0,"Fukushima Airport, Habakida-21 Kitasugama, Tamakawa, Ishikawa District, Fukushima 963-6304, Japan",37.2285021,140.4283852
+20,成田国際空港,千葉県成田市古込１−１,16312020,1631,"Narita International Airport (NRT), 1-1 Furugome, Narita, Chiba 282-0004, Japan",35.770178,140.3843215
+21,東京国際空港,東京都大田区羽田空港,12393746,1239,"Tokyo International Airport (Haneda Airport) (HND), Hanedakūkō, Ota City, Tokyo 144-0041, Japan",35.5482964,139.7779951
+22,新潟空港,新潟県新潟市東区松浜町３７１０,23511,2,"Niigata Airport (KIJ), 3710 Matsuhamachō, Higashi Ward, Niigata, 950-0001, Japan",37.9549441,139.1111814
+23,大島空港,東京都大島町元町北の山270番地,0,0,"Oshima Airport (Tokyo Oshima Camelia Airport), Kitanoyama-270 Motomachi, Oshima, Tokyo 100-0101, Japan",34.7824269,139.3634289
+24,三宅島空港,東京都三宅村坪田1378番地,0,0,"Miyakejima Airport (MYE), 1378 Tsubota, 三宅村 三宅島 Tokyo 100-1211, Japan",34.0728033,139.5596753
+25,八丈島空港,東京都八丈島八丈町大賀郷２８３９−２,0,0,"Hachijojima Airport, 2839-2 Ōkagō, Hachijo Town, 八丈島 Tokyo 100-1401, Japan",33.1165275,139.7828125
+26,新島空港,"東京都新島村字, 川原０",0,0,"Niijima Airport, ０ Kawara, 字, Niijima, Tokyo 100-0400, Japan",34.3704271,139.269378
+27,神津島空港,東京都神津島村字金長,0,0,"Kouzushima Airport, Yakiyama, 字 Kozushima Village, Tokyo 100-0601, Japan",34.1902414,139.1343624
+28,佐渡空港,新潟県佐渡市秋津１８１４−３,0,0,"Sado Airport, 1814-3 Akitsu, Sado, Niigata 952-0021, Japan",38.0623068,138.4085317
+29,松本空港,長野県松本市空港東８９０９,0,0,"Shinshu-Matsumoto Airport (MMJ), 8909 Kūkōhigashi, Matsumoto, Nagano 390-1132, Japan",36.1646638,137.9264151
+30,静岡空港,静岡県牧之原市坂口３３３６−４,52498,5,"Mt. Fuji Shizuoka Airport, 3336-4 Sakaguchi, Makinohara, Shizuoka 421-0411, Japan",34.7964745,138.1853219
+31,中部国際空港,愛知県常滑市セントレア１丁目１,1838800,183,"Chubu Centrair International Airport (NGO), 1-chōme-1 Centrair, Tokoname, Aichi 479-0881, Japan",34.8573624,136.8107557
+32,富山空港,富山県富山市秋ヶ島３０,31129,3,"Toyama Airport, 30 Akigashima, Toyama, 939-8252, Japan",36.6482604,137.187794
+33,能登空港,石川県輪島市三井町洲衛１０−１１−１,890,0,"Noto Airport (Noto-Satoyama Airport) (NTQ), Sue-10-11-1 Miimachi, Wajima, Ishikawa 929-2372, Japan",37.2950808,136.9574862
+34,福井空港,福井県坂井市春江町江留中５０−１−２,0,0,"Fukui Airport (FKJ), 50-1-2 Haruechō Edomenaka, Sakai, Fukui 919-0412, Japan",36.1401139,136.2219681
+35,大阪国際空港,大阪府豊中市螢池西町３丁目５５５,0,0,"Osaka International Airport (ITM), 3-chōme-555 Hotarugaike Nishimachi, Toyonaka, Osaka 560-0036, Japan",34.7861612,135.4380483
+36,関西国際空港,大阪府泉佐野市泉州空港北１,11682263,1168,"Kansai International Airport (KIX), 1番地 Senshūkūkōkita, Izumisano, Osaka 549-0001, Japan",34.4319994,135.2366019
+37,南紀白浜空港,和歌山県西牟婁郡白浜町才野１６２２−１２５,0,0,"Nanki-Shirahama Airport (Kumano-Shirahama Resort Airport), 1622-125 Saino, Shirahama, Nishimuro District, Wakayama 649-2211, Japan",33.662184,135.3605593
+38,神戸空港,兵庫県神戸市中央区神戸空港１,11,0,"Kobe Airport (UKB), 1 Kōbekūkō, Chuo Ward, Kobe, Hyogo 650-0048, Japan",34.6350979,135.2267037
+39,広島空港,広島県三原市本郷町善入寺６４−３１,70628,7,"Hiroshima Airport (HIJ), 64-31 Hongōchō Zennyūji, Mihara, Hiroshima 729-0416, Japan",34.437296,132.9206229
+40,山口宇部空港,山口県宇部市沖宇部６２５,0,0,"Yamaguchi Ube Airport (UBJ), 625 Okiube, Ube, Yamaguchi 755-0001, Japan",33.9312977,131.2785382
+41,岡山空港,岡山県岡山市北区日応寺１２７７,78849,7,"Okayama Momotaro Airport (OKJ), 1277 Nichiōji, Kita Ward, Okayama, 701-1131, Japan",34.7579784,133.8558042
+42,鳥取空港,鳥取県鳥取市湖山町西４−１１０−５,444,0,"Tottori Airport, 4-chōme-110-5 Koyamachōnishi, Tottori, 680-0947, Japan",35.5265417,134.168
+43,隠岐空港,島根県隠岐郡隠岐の島町岬町１８８９−１２,0,0,"Oki Airport, 1889-12 Misakimachi, Okinoshima, Oki-gun, Shimane 685-0021, Japan",36.1776403,133.3297021
+44,出雲空港,島根県出雲市斐川町 沖洲 ２６３３−１,620,0,"Izumo Airport, 2633-1 Hikawachō Okinosu, Izumo, Shimane 699-0502, Japan",35.4136367,132.8888469
+45,石見空港,島根県益田市内田町イ５９７,0,0,"Hagi-Iwami Airport, イ５９７ Uchidachō, Masuda, Shimane 698-0051, Japan",34.6781762,131.7967452
+46,高松空港,香川県高松市香南町岡１３１２−７,166693,16,"Takamatsu Airport, 1312-7 Kōnanchōoka, Takamatsu, Kagawa 761-1401, Japan",34.2148952,134.0147183
+47,松山空港,愛媛県松山市南吉田町２７３１,70030,7,"Matsuyama Airport (MYJ), 2731 Minamiyoshidamachi, Matsuyama, Ehime 791-8042, Japan",33.8276948,132.7003773
+48,高知空港,高知県南国市久枝乙 ５８,19363,1,"Kōchi Airport, 乙５８ Hisaeda, Nankoku, Kochi 783-0096, Japan",33.5476089,133.6740704
+49,福岡空港,福岡県福岡市博多区下臼井７７８−１,4393838,439,"Fukuoka Airport (FUK), 778-1 Shimousui, Hakata Ward, Fukuoka, 812-0003, Japan",33.5849988,130.4490906
+50,北九州空港,福岡県北九州市小倉南区空港北町６,62002,6,"Kitakyushu Airport, 6 Kūkō Kitamachi, Kokuraminami Ward, Kitakyushu, Fukuoka 800-0306, Japan",33.8390089,131.033516
+51,長崎空港,長崎県大村市箕島町５９３,408,0,"Nagasaki Airport (NGS), 593 Mishimamachi, Ōmura, Nagasaki 856-0816, Japan",32.9149339,129.917042
+52,熊本空港,熊本県上益城郡益城町小谷１８０２−２,103252,10,"Kumamoto Airport (KMJ), 1802-2 Oyatsu, Mashiki, Kamimashiki District, Kumamoto 861-2204, Japan",32.8349978,130.8589779
+53,大分空港,大分県国東市安岐町下原１３,21517,2,"Oita Airport (OIT), 13 Akimachi Shimobaru, Kunisaki, Oita 873-0231, Japan",33.4796632,131.7362008
+54,宮崎空港,宮崎県宮崎市赤江,10700,1,"Miyazaki Airport (KMI), Akae, Miyazaki, 880-0912, Japan",31.8762059,131.4483982
+55,鹿児島空港,鹿児島県霧島市溝辺町麓８２２,33088,3,"Kagoshima International Airport (KOJ), 822 Mizobechōfumoto, Kirishima, Kagoshima 899-6404, Japan",31.8007193,130.7202592
+56,佐賀空港,佐賀県佐賀市川副町大字犬井道９４７６−１８７,39796,3,"Saga International Airport, 旅客ターミナルビル 9476-187 Kawasoemachi Ōaza Inuidō, Saga, 840-2212, Japan",33.1505692,130.3018177
+57,対馬空港,長崎県対馬市美津島町鷄知乙２８３,0,0,"TSUSHIMA YAMANEKO AIRPORT, 乙440 Mitsushimamachi Kechi, Tsushima, Nagasaki 817-0322, Japan",34.2859032,129.3260756
+58,小値賀空港,長崎県北松浦郡小値賀町前方郷,0,0,"Ojika Airport, 2074-1 Maegatagō, Ojika, 北松浦郡 Nagasaki 857-4702, Japan",33.1908333,129.0902778
+59,福江空港,長崎県五島市上大津町２１８３,0,0,"Fukue Airport (Gotō Tsubaki Airport), 2183 Kamiōzuchō, Goto, Nagasaki 853-0042, Japan",32.6679278,128.8343104
+60,上五島空港,長崎県南松浦郡新上五島町友住郷７４４,0,0,"Kami-Gotō Airport, 744 Tomosumigō, Shinkamigoto, Minamimatsuura District, Nagasaki 857-4102, Japan",33.0112077,129.1915714
+61,壱岐空港,長崎県壱岐市石田町筒城東触１７２５,0,0,"Iki Airport, 1725 Ishidachō Tsutsukihigashifure, Iki, Nagasaki 811-5203, Japan",33.7502681,129.7840471
+62,屋久島空港,鹿児島県熊毛郡屋久島町小瀬田５０１,0,0,"Yakushima Airport, 501 Koseda, Yakushima, Kumage District, Kagoshima 891-4207, Japan",30.3845262,130.6603495
+63,奄美空港,鹿児島県奄美市笠利町,0,0,"Amami Airport, 374-4 Kasarichō Ōaza Wano, Amami, Kagoshima 894-0503, Japan",28.4304414,129.7113205
+64,喜界空港,鹿児島県大島郡喜界町中里字西牧201−９,0,0,"Kikai Airport, 201-9 字西牧 喜界町中里 Oshima District, Kagoshima 891-6203, Japan",28.3197961,129.9274656
+65,徳之島空港,鹿児島県大島郡天城町浅間１−１,0,0,"Tokunoshima Airport, 1-1 Asama, Amagi, Oshima District, Kagoshima 891-7605, Japan",27.8322781,128.8832089
+66,沖永良部空港,鹿児島県大島郡和泊町国頭,0,0,"Okinoerabu Airport, 1732-2 Kunigami, Wadomari, Oshima District, Kagoshima 891-9101, Japan",27.4331345,128.7047594
+67,与論空港,鹿児島県大島郡与論町立長,0,0,"Yoron Airport, 57 Ritchō, Yoron, Oshima District, Kagoshima 891-9302, Japan",27.0430615,128.3999492
+68,種子島空港,鹿児島県熊毛郡中種子町増田２６９２−６４,0,0,"Tanegashima Airport (TNE), 2692-64 Masuda, Nakatane, Kumage District, Kagoshima 891-3603, Japan",30.6092436,130.9915774
+69,那覇空港,沖縄県那覇市鏡水１５０,1236470,123,"Naha International Airport, 150 Kagamizu, Naha, Okinawa 901-0142, Japan",26.2001297,127.6466452
+70,粟国空港,沖縄県島尻郡粟国村浜４５５０,0,0,"Aguni Airport, 4550 Hama, Aguni, Shimajiri District, Okinawa 901-3701, Japan",26.5928022,127.2393831
+71,慶良間空港,沖縄県島尻郡座間味村慶留間,0,0,"Kerama Airport, ９３４番地１３ Geruma, Zamami, Shimajiri District, Okinawa 901-3312, Japan",26.1705447,127.2928834
+72,久米島空港,沖縄県島尻郡久米島町字北原５６６−２,0,0,"Kumejima Airport, 566-2 Kitahara, 字 Kumejima, Shimajiri District, Okinawa 901-3133, Japan",26.3648255,126.7175055
+73,南大東空港,沖縄県島尻郡南大東村旧東２５８,0,0,"Minamidaito Airport (MMD), 258 Kyūtō, Minamidaito, Shimajiri District, Okinawa 901-3803, Japan",25.8459976,131.2654695
+74,北大東空港,沖縄県島尻郡北大東村南19−１６,0,0,"Kitadaito Airport, 19-16 Minami, Kitadaitō, Shimajiri District, Okinawa 901-3901, Japan",25.9444457,131.3244085
+75,伊江島空港,沖縄県国頭郡伊江村字東江前３８,0,0,"Iejima Airport (IEJ), 38 Higashiemae, 字 Ie, Kunigami District, Okinawa 905-0503, Japan",26.7236199,127.7855238
+76,宮古空港,沖縄県宮古島市平良下里１６５７−１２８,0,0,"Miyako Airport (MMY), Shimozato-1657-128 Hirara, Miyakojima, Okinawa 906-0013, Japan",24.7792938,125.2976329
+77,下地島空港,沖縄県宮古島市伊良部佐和田１７２７,0,0,"R4GW+RR Shimojishima Airport, Sawada Irabu, Miyakojima, Okinawa 906-0507, Japan",24.8270941,125.147088
+78,多良間空港,沖縄県宮古郡多良間村仲筋２３５１−７,0,0,"Tarama Airport, 2351-7 Nakasuji, Tarama, Miyako District, Okinawa 906-0602, Japan",24.6540373,124.6773855
+79,波照間空港,沖縄県八重山郡竹富町,0,0,"Hateruma Airport, 4566-27 Hateruma, Taketomi, Yaeyama District, Okinawa 907-1751, Japan",24.0602643,123.8045555
+80,与那国空港,沖縄県八重山郡与那国町与那国４３５０,0,0,"Yonaguni Airport, 4350 Yonaguni, Yaeyama District, Okinawa 907-1801, Japan",24.4652232,122.9798603

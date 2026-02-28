@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Document</title>
+<link rel="icon" href="../../img/favicon.ico">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- mapbox -->   
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+/* ===== sidebar =====*/
+#sidebar {
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    width: auto;
+    padding: 20px;
+  }
+  
+.indicator-title{
+    color: white;
+    font-size: 50px;
+}
+
+/* カスタムポップアップ */
+.popupCustom .mapboxgl-popup-content {
+    width: 960px;
+    height: 600px;
+    font: 24px Arial, sans-serif;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <h1 class="indicator-title" style="color: white;">都市の中にある過去</h1>
+    <p style="font-size: small; color: white;">出典: Mori Memorial Foundation</p>
+</div>
+
+<div id="map"></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/satellite-v9',
+        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+        zoom: 14, // starting zoom
+        maxZoom: 14,
+        minZoom: 14,
+        pitch: 0,
+        bearing:0,
+        center: [139.76504868387178, 35.67129573187719], // starting center
+        dragRotate: false, // disable map rotation
+        pitchWithRotate: false // disable pitch change with rotation
+    });
+
+    function addVideoLayer(id, icon, coordinates, descriptionUrl) {
+    map.loadImage(icon, (error, image) => {
+        if (error) throw error;
+
+        // Load the black-and-white version of the icon
+        const bwIcon = icon.replace('.png', '_bw.png');
+        map.loadImage(bwIcon, (error, bwImage) => {
+            if (error) throw error;
+
+            // Add the original and bw icons to the map style
+            map.addImage(id, image);
+            map.addImage(`${id}_bw`, bwImage);
+
+            // Add a data source containing several points' features.
+            map.addSource(id, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                                "name": id,
+                                'description':
+                                    `<strong>${id}</strong><p><iframe width="960" height="540" src="${descriptionUrl}?mute=1" title="video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></p>`,
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': coordinates
+                            }
+                        },
+                    ]
+                }
+            });
+
+            // Add a layer to use the image to represent the data.
+            map.addLayer({
+                'id': id,
+                'type': 'symbol',
+                'source': id, // reference the data source
+                'layout': {
+                    'icon-image': id, // reference the image
+                    'icon-size': 1,
+                    'visibility': 'visible'
+                },
+            });
+
+            // On click, get coordinates and a description.
+            map.on('click', id, (e) => {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const description = e.features[0].properties.description;
+
+                // Offset the latitude slightly to move the popup above the marker
+                const offset_x = 0.01; // Adjust this value as needed
+                const offset_y = 0.01; // Adjust this value as needed
+                coordinates[0] -= offset_x;
+                coordinates[1] += offset_y;
+
+                // Create a popup object
+                new mapboxgl.Popup({className: 'popupCustom'})
+                    .setLngLat(coordinates)
+                    .setHTML(description)
+                    .addTo(map);
+            });
+
+            // Change the icon to the black-and-white version on mouse enter
+            map.on('mouseenter', id, () => {
+                map.getCanvas().style.cursor = 'pointer';
+                map.setLayoutProperty(id, 'icon-image', `${id}_bw`);
+            });
+
+            // Revert to the original icon on mouse leave
+            map.on('mouseleave', id, () => {
+                map.getCanvas().style.cursor = '';
+                map.setLayoutProperty(id, 'icon-image', id);
+            });
+        });
+    });
+}
+
+map.on('load', () => {
+    addVideoLayer('1850', 'marker-1850.png', [139.76504868387178, 35.675], 'https://www.tokyotimemachine.com/virtualginza/index.htm?media-index=9');
+    addVideoLayer('1910', 'marker-1910.png', [139.76504868387178, 35.672], 'https://www.tokyotimemachine.com/virtualginza/index.htm?media-index=29');
+    addVideoLayer('1940', 'marker-1940.png', [139.76504868387178, 35.669], 'https://www.tokyotimemachine.com/virtualginza/index.htm?media-index=49');
+});
+
+</script>
+
+
+
+</script>
+
+</body>
+</html>

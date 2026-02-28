@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../turn.min.js"></script>
+
+<style type="text/css">
+body {
+	background: black;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#magazine {
+	width: 1440px;  /* Increased width */
+	height: 960px;  /* Increased height */
+}
+
+#magazine .turn-page {
+	background-color: #ccc;
+	background-size: 100% 100%;
+}
+</style>
+</head>
+<body>
+
+<div id="magazine">
+	<div style="background-image:url(pages_okinawa/01.png);"></div>
+	<div style="background-image:url(pages_okinawa/10.png);"></div>
+	<div style="background-image:url(pages_okinawa/11.png);"></div>
+	<!--
+	<div style="background-image:url(pages_okinawa/12.png);"></div>
+	<div style="background-image:url(pages_okinawa/13.png);"></div>
+	<div style="background-image:url(pages_okinawa/14.png);"></div>
+	<div style="background-image:url(pages_okinawa/15.png);"></div>
+	<div style="background-image:url(pages_okinawa/16.png);"></div>
+	<div style="background-image:url(pages_okinawa/17.png);"></div>
+	<div style="background-image:url(pages_okinawa/32.png);"></div>
+	-->
+</div>
+
+<script type="text/javascript">
+
+	$(window).ready(function() {
+		$('#magazine').turn({
+			display: 'double',
+			acceleration: true,
+			gradients: !$.isTouch,
+			elevation: 50,
+			when: {
+				turned: function(e, page) {
+					/*console.log('Current view: ', $(this).turn('view'));*/
+				}
+			}
+		});
+	});
+	
+	$(window).bind('keydown', function(e) {
+		if (e.keyCode == 37)
+			$('#magazine').turn('previous');
+		else if (e.keyCode == 39)
+			$('#magazine').turn('next');
+	});
+
+</script>
+
+</body>
+</html>

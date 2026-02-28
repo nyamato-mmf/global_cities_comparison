@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Population Density changes over time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
+      h2 {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #2dc4b2;
+      }
+
+      #console {
+        position: absolute;
+        margin: 10px;
+        width: 240px;
+        background-color: white;
+        padding: 10px 20px;
+      }
+
+      .session {
+        margin-bottom: 20px;
+      }
+
+      .row {
+        height: 12px;
+        width: 100%;
+      }
+
+      .colors {
+        background: linear-gradient(
+          to right,
+          #2dc4b2,
+          #3bb3c3,
+          #669ec4,
+          #8b88b6,
+          #a2719b,
+          #aa5e79
+        );
+        margin-bottom: 5px;
+      }
+
+      .label {
+        width: 15%;
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <div id="console">
+      <h1>人口密度の推移</h1>
+
+      <div class="session">
+        <h1><label id="active-year">1960</label>年</h1>
+        <input
+          id="slider"
+          class="row"
+          type="range"
+          min="1960"
+          max="2020"
+          step="10"
+          value="1960"
+        />
+      </div>
+
+    </div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/satellite-v9',
+        projection: 'globe',
+        center: [139.7682320401466, 35.42694411416717],
+        zoom: 9,
+        pitch:50,
+      });
+
+      map.on('load', () => {
+        let filterYear = ['==', ['string', ['get', 'Year']], '1960'];
+
+        map.addLayer({
+            'id': 'density',
+            'type': 'fill-extrusion',
+            'source': {
+                type: 'geojson',
+                data: './geojson/PopDensity_1950_2020.geojson' // replace this with the url of your own geojson
+                },
+            'paint': {
+                'fill-extrusion-color': [
+                'interpolate',
+                ['linear'],
+                ['get', '人口密度'],
+                0,
+                '#768C6D',
+                1000,
+                '#CFDF78',
+                2500,
+                '#E6B71E',
+                5000,
+                '#DA9C20',
+                10000,
+                '#B86B25',
+                15000,
+                '#B34E20',
+                20000,
+                '#A25626',
+                30000,
+                '#8B4225',
+                40000,
+                '#723122',
+                50000,
+                '#441D14'
+                ],
+                'fill-extrusion-height': ['get', '人口密度'],
+                'fill-extrusion-base': 0,
+                'fill-extrusion-opacity': 1.0,
+            },
+            'filter': ['all', filterYear]
+        });
+
+        // update year filter when the slider is dragged
+        document.getElementById('slider').addEventListener('input', (event) => {
+          const year = String(event.target.value);
+          console.log(year)
+
+          const years = ['1960','1970','1980','1990','2000','2010','2020'];
+          if (years.includes(year)) {
+            // update the map
+            filterYear = ['==', ['string', ['get', 'Year']], year];
+            map.setFilter('density', ['all', filterYear]);
+            
+            // update text in the UI
+            document.getElementById('active-year').innerText = year;
+
+            } else {
+                event.preventDefault();   
+            }
+
+        });
+
+
+        // When a click event occurs on a feature in the cities layer, open a popup at the
+        // location of the click, with description HTML from its properties.
+        map.on('click', 'density', function (e) {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(e.features[0].properties.name + ": " + parseInt(e.features[0].properties["人口密度"]).toLocaleString() + "人/㎢")
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the cities layer.
+        map.on('mouseenter', 'density', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'density', function () {
+            map.getCanvas().style.cursor = '';
+        });
+
+      });
+    </script>
+  </body>
+</html>

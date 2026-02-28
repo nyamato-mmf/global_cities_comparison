@@ -1,0 +1,26 @@
+{
+  "name": "econ-charts-tool",
+  "version": "2.0.0",
+  "description": "This is a tool for quickly creating simple charts to explain the relationship between supply and demand.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/academic-technology-brown/faculty-projects/econ-charts-tool.git"
+  },
+  "keywords": [
+    "economics",
+    "chart",
+    "paper.js"
+  ],
+  "author": "Kelly Egan",
+  "license": "ISC",
+  "dependencies": {
+    "paper": "^0.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}

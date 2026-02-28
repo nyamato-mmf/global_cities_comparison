@@ -1,0 +1,723 @@
+﻿Arr City Code,都市名,国名
+HEL,HELSINKI,Finland
+TRN,TURIN,Italy
+KRK,KRAKOW,Poland
+FAO,FARO,Portugal (including Azores & Madeira)
+ZRH,ZURICH,Switzerland
+BDS,BRINDISI,Italy
+HAM,HAMBURG,Germany
+PAR,PARIS,France
+ABZ,ABERDEEN,United Kingdom
+CHQ,CHANIA,Greece
+HER,IRAKLEION,Greece
+DOH,DOHA,Qatar
+ATL,ATLANTA,United States of America
+STO,STOCKHOLM,Sweden
+SNN,SHANNON,Ireland
+MAD,MADRID,Spain and Canary Islands
+ALC,ALICANTE,Spain and Canary Islands
+TLV,TEL AVIV YAFO,Israel
+CUN,CANCUN,Mexico
+CPH,COPENHAGEN,Denmark
+BIQ,BIARRITZ,France
+BRI,BARI,Italy
+MBJ,MONTEGO BAY,Jamaica
+TPE,TAIPEI,Chinese Taipei
+LAS,LAS VEGAS,United States of America
+RAK,MARRAKECH,Morocco
+VIE,VIENNA,Austria
+MLA,MALTA,Malta
+SOF,SOFIA,Bulgaria
+CMF,CHAMBERY,France
+TCI,TENERIFE,Spain and Canary Islands
+ACE,LANZAROTE,Spain and Canary Islands
+EDI,EDINBURGH,United Kingdom
+GLA,GLASGOW,United Kingdom
+AYT,ANTALYA,Turkey
+BOS,BOSTON,United States of America
+PMI,PALMA MALLORCA,Spain and Canary Islands
+LIS,LISBON,Portugal (including Azores & Madeira)
+AHO,ALGHERO,Italy
+FRA,FRANKFURT,Germany
+BAH,BAHRAIN,Bahrain
+SJJ,SARAJEVO,Bosnia and Herzegovina
+DUS,DUSSELDORF,Germany
+ROM,ROME,Italy
+HAN,HANOI,Vietnam
+KSC,KOSICE,Slovak Republic
+NAP,NAPLES,Italy
+MIL,MILAN,Italy
+JTR,THIRA,Greece
+KIR,KERRY,Ireland
+OPO,PORTO,Portugal (including Azores & Madeira)
+ZYL,SYLHET,Bangladesh
+BRU,BRUSSELS,Belgium
+AMS,AMSTERDAM,Netherlands
+BER,BERLIN,Germany
+LPA,GRAN CANARIA,Spain and Canary Islands
+BCN,BARCELONA,Spain and Canary Islands
+LAX,LOS ANGELES,United States of America
+STR,STUTTGART,Germany
+GCI,GUERNSEY,United Kingdom
+NCL,NEWCASTLE,United Kingdom
+NBO,NAIROBI,Kenya
+GIB,GIBRALTAR,Gibraltar
+AGP,MALAGA,Spain and Canary Islands
+VCE,VENICE,Italy
+JER,JERSEY,United Kingdom
+TIA,TIRANA,Albania
+KLX,KALAMATA,Greece
+PFO,PAPHOS,Cyprus
+GOA,GENOA,Italy
+NYC,NEW YORK,United States of America
+ISB,ISLAMABAD,Pakistan
+VLC,VALENCIA,Spain and Canary Islands
+PRN,PRISTINA,Kosovo
+OSL,OSLO,Norway
+MLB,MELBOURNE,United States of America
+FNC,FUNCHAL,Portugal (including Azores & Madeira)
+JED,JEDDAH,Saudi Arabia
+DLM,DALAMAN,Turkey
+IBZ,IBIZA,Spain and Canary Islands
+LEI,ALMERIA,Spain and Canary Islands
+TIV,TIVAT,Montenegro
+OLB,OLBIA,Italy
+LYS,LYON,France
+MAN,MANCHESTER,United Kingdom
+MIA,MIAMI,United States of America
+IZM,IZMIR,Turkey
+SFO,SAN FRANCISCO,United States of America
+GVA,GENEVA,Switzerland
+YVR,VANCOUVER,Canada
+SLU,ST LUCIA,St. Lucia
+REK,REYKJAVIK,Iceland
+BUD,BUDAPEST,Hungary
+WAS,WASHINGTON,United States of America
+TLS,TOULOUSE,France
+DUB,DUBLIN,Ireland
+SEA,SEATTLE,United States of America
+CHI,CHICAGO,United States of America
+SKG,THESSALONIKI,Greece
+SCV,SUCEAVA,Romania
+CAG,CAGLIARI,Italy
+PDV,PLOVDIV,Bulgaria
+TUN,TUNIS,Tunisia
+TMP,TAMPERE,Finland
+LRH,LA ROCHELLE,France
+TYO,TOKYO,Japan
+VXO,VAXJO,Sweden
+SUJ,SATU MARE,Romania
+AMM,AMMAN,Jordan
+NOC,KNOCK,Ireland
+PHX,PHOENIX,United States of America
+NCE,NICE,France
+BEY,BEIRUT,Lebanon
+MST,MAASTRICHT,Netherlands
+FUE,FUERTEVENTURA,Spain and Canary Islands
+PRG,PRAGUE,Czech Republic
+SZZ,SZCZECIN,Poland
+BLQ,BOLOGNA,Italy
+TPA,TAMPA,United States of America
+TAS,TASHKENT,Uzbekistan
+ORL,ORLANDO,United States of America
+FKB,KARLSRUHE/BADEN-BADEN,Germany
+BUH,BUCHAREST,Romania
+SJO,SAN JOSE,Costa Rica
+BCM,BACAU,Romania
+YTO,TORONTO,Canada
+ATH,ATHENS,Greece
+SSH,SHARM EL-SHEIKH,Egypt
+SPU,SPLIT,Croatia
+HYD,HYDERABAD,India (including Andaman Isl.)
+DEL,DELHI,India (including Andaman Isl.)
+DBV,DUBROVNIK,Croatia
+BOM,MUMBAI,India (including Andaman Isl.)
+ORK,CORK,Ireland
+BZG,BYDGOSZCZ,Poland
+KTW,KATOWICE,Poland
+MSY,NEW ORLEANS,United States of America
+INV,INVERNESS,United Kingdom
+CFU,KERKYRA,Greece
+CPT,CAPE TOWN,South Africa
+DRW,DARWIN,Australia
+IST,ISTANBUL,Turkey
+BRE,BREMEN,Germany
+CTA,CATANIA,Italy
+DXB,DUBAI,United Arab Emirates
+KUN,KAUNAS,Lithuania
+WRO,WROCLAW,Poland
+HKT,PHUKET,Thailand
+LOS,LAGOS,Nigeria
+ZTH,ZAKINTHOS ISLAND,Greece
+RUH,RIYADH,Saudi Arabia
+GOT,GOTHENBURG,Sweden
+INN,INNSBRUCK,Austria
+CCF,CARCASSONNE,France
+MUC,MUNICH,Germany
+BGO,BERGEN,Norway
+RMU,CORVERA,Spain and Canary Islands
+DND,DUNDEE,United Kingdom
+PIS,POITIERS,France
+IAS,IASI,Romania
+VRN,VERONA,Italy
+BEG,BELGRADE,Serbia
+SID,SAL ISLAND,Cape Verde
+SVQ,SEVILLA,Spain and Canary Islands
+AGA,AGADIR,Morocco
+OHD,OHRID,"North Macedonia, Republic of"
+BFS,BELFAST,United Kingdom
+BTS,BRATISLAVA,Slovak Republic
+PHL,CAMDEN,United States of America
+PLQ,PALANGA,Lithuania
+BGI,BARBADOS,Barbados
+RHO,RHODES,Greece
+SZG,SALZBURG,Austria
+ZAG,ZAGREB,Croatia
+CGN,COLOGNE,Germany
+BOD,BORDEAUX,France
+JMK,MYKONOS,Greece
+HRG,HURGHADA,Egypt
+TPS,TRAPANI,Italy
+ALG,ALGIERS,Algeria
+CLT,CHARLOTTE,United States of America
+GDN,GDANSK,Poland
+MRS,MARSEILLE,France
+WAW,WARSAW,Poland
+BDA,BERMUDA,Bermuda
+NUE,NUREMBERG,Germany
+BZR,BEZIERS,France
+VNO,VILNIUS,Lithuania
+REU,REUS,Spain and Canary Islands
+FEZ,FES,Morocco
+NBE,ENFIDHA,Tunisia
+LUX,LUXEMBOURG,Luxembourg
+HAJ,HANOVER,Germany
+PUY,PULA,Croatia
+LCA,LARNACA,Cyprus
+PMO,PALERMO,Italy
+TLL,TALLINN,Estonia
+ABV,ABUJA,Nigeria
+IOM,ISLE OF MAN,United Kingdom
+PSA,PISA,Italy
+BLL,BILLUND,Denmark
+RIX,RIGA,Latvia
+TUF,TOURS,France
+NAS,NASSAU,Bahamas
+CND,CONSTANTA,Romania
+AUH,ABU DHABI,United Arab Emirates
+DFW,DALLAS/FORT WORTH,United States of America
+OMR,ORADEA,Romania
+KWI,KUWAIT,Kuwait
+CLJ,CLUJ-NAPOCA,Romania
+HOU,HOUSTON,United States of America
+DTM,DORTMUND,Germany
+MEX,MEXICO CITY,Mexico
+SAO,SAO PAULO,Brazil
+EFL,KEFALLINIA,Greece
+MME,DURHAM,United Kingdom
+WMI,NOWY DWOR MAZOWIECKI,Poland
+TAT,POPRAD,Slovak Republic
+CDT,CASTELLON DE LA PLANA,Spain and Canary Islands
+MAH,MENORCA,Spain and Canary Islands
+FLR,FLORENCE,Italy
+KGS,KOS,Greece
+RJK,RIJEKA,Croatia
+LIG,LIMOGES,France
+AOI,ANCONA,Italy
+NTE,NANTES,France
+BIO,BILBAO,Spain and Canary Islands
+KIN,KINGSTON,Jamaica
+SAN,SAN DIEGO,United States of America
+POZ,POZNAN,Poland
+AAR,AARHUS,Denmark
+RBA,RABAT,Morocco
+LUZ,LUBLIN,Poland
+MSP,MINNEAPOLIS,United States of America
+CAI,CAIRO,Egypt
+EIN,EINDHOVEN,Netherlands
+RZE,RZESZOW,Poland
+MAA,CHENNAI,India (including Andaman Isl.)
+JNB,JOHANNESBURG,South Africa
+DRS,DRESDEN,Germany
+PVK,PREVEZA/LEFKADA,Greece
+BRQ,BRNO,Czech Republic
+SVG,STAVANGER,Norway
+BVC,BOA VISTA ISLAND,Cape Verde
+TER,TERCEIRA ISLAND,Portugal (including Azores & Madeira)
+MCT,MUSCAT,Oman
+VAR,VARNA,Bulgaria
+CRA,CRAIOVA,Romania
+ZAD,ZADAR,Croatia
+LIR,LIBERIA,Costa Rica
+BWN,BANDAR SERI BEGAWAN,Brunei Darussalam
+LJU,LJUBLJANA,Slovenia
+SDR,SANTANDER,Spain and Canary Islands
+SCQ,SANTIAGO DE COMPOSTELA,Spain and Canary Islands
+LXR,LUXOR,Egypt
+MRU,MAURITIUS,Mauritius
+GRX,GRANADA,Spain and Canary Islands
+TGD,PODGORICA,Montenegro
+ACC,ACCRA,Ghana
+OSA,OSAKA,Japan
+AUS,AUSTIN,United States of America
+PUJ,PUNTA CANA,Dominican Republic
+PEG,PERUGIA,Italy
+ANK,ANKARA,Turkey
+LDY,LONDONDERRY,United Kingdom
+BAK,BAKU,Azerbaijan
+TNG,TANGIER,Morocco
+KIV,CHISINAU,Moldova Rep. of
+BVE,BRIVE-LA-GAILLARDE,France
+NQY,NEWQUAY,United Kingdom
+PGF,PERPIGNAN,France
+DTT,DETROIT,United States of America
+PSR,PESCARA,Italy
+DEN,DENVER,United States of America
+BKK,BANGKOK,Thailand
+KUL,KUALA LUMPUR,Malaysia
+ZAZ,ZARAGOZA,Spain and Canary Islands
+FMM,MEMMINGEN,Germany
+LDE,LOURDES/TARBES,France
+YYC,CALGARY,Canada
+GOI,GOA,India (including Andaman Isl.)
+LCJ,LODZ,Poland
+MPL,MONTPELLIER,France
+SEL,SEOUL,Korea (Rep. of)
+AMD,AHMEDABAD,India (including Andaman Isl.)
+SIN,SINGAPORE,Singapore
+VOL,VOLOS,Greece
+OVD,ASTURIAS,Spain and Canary Islands
+BLR,BENGALURU,India (including Andaman Isl.)
+TRS,TRIESTE,Italy
+XRY,JEREZ DE LA FRONTERA,Spain and Canary Islands
+THR,TEHRAN,Iran (Islamic Republic of)
+OSR,OSTRAVA,Czech Republic
+MLE,MALE,Maldives
+RIO,RIO DE JANEIRO,Brazil
+SCL,SANTIAGO,Chile
+EGC,BERGERAC,France
+DEB,DEBRECEN,Hungary
+LHE,LAHORE,Pakistan
+ANU,ANTIGUA,Antigua and Barbuda
+TRD,TRONDHEIM,Norway
+LCG,LA CORUNA,Spain and Canary Islands
+PDL,PONTA DELGADA,Portugal (including Azores & Madeira)
+TSR,TIMISOARA,Romania
+SBZ,SIBIU,Romania
+ATQ,AMRITSAR,India (including Andaman Isl.)
+ADD,ADDIS ABABA,Ethiopia
+TGM,TIRGU MURES,Romania
+SUF,LAMEZIA-TERME,Italy
+GRO,GERONA,Spain and Canary Islands
+ORB,OREBRO,Sweden
+BOJ,BURGAS,Bulgaria
+LBA,LEEDS/BRADFORD,United Kingdom
+AAL,AALBORG,Denmark
+RTM,ROTTERDAM,Netherlands
+SZY,SZCZYTNO,Poland
+BJL,BANJUL,Gambia
+HKG,HONG KONG,"Hong Kong (SAR), China"
+PVR,PUERTO VALLARTA,Mexico
+BOG,BOGOTA,Colombia
+YMQ,MONTREAL,Canada
+SPC,SANTA CRUZ DE LA PALMA,Spain and Canary Islands
+CMB,COLOMBO,Sri Lanka
+COK,KOCHI,India (including Andaman Isl.)
+SGN,HO CHI MINH CITY,Vietnam
+SKP,SKOPJE,"North Macedonia, Republic of"
+NQZ,NUR-SULTAN,Kazakhstan
+JSI,SKIATHOS,Greece
+SCO,AKTAU,Kazakhstan
+KVA,KAVALA,Greece
+BWI,BALTIMORE,United States of America
+YQB,QUEBEC,Canada
+BNA,NASHVILLE,United States of America
+BJV,BODRUM,Turkey
+SMI,SAMOS,Greece
+PXO,PORTO SANTO,Portugal (including Azores & Madeira)
+AUA,ARUBA,Aruba
+SLC,SALT LAKE CITY,United States of America
+LEJ,LEIPZIG/HALLE,Germany
+FSC,FIGARI,France
+CLY,CALVI,France
+YHZ,HALIFAX,Canada
+RNS,RENNES,France
+MJT,MYTILINI,Greece
+BIA,BASTIA,France
+PER,PERTH,Australia
+SJC,SAN JOSE,United States of America
+GZT,GAZIANTEP,Turkey
+FNI,NIMES,France
+KGL,KIGALI,Rwanda
+UIP,QUIMPER,France
+KHI,KARACHI,Pakistan
+RDZ,RODEZ,France
+PDX,PORTLAND,United States of America
+AEY,AKUREYRI,Iceland
+PIT,PITTSBURGH,United States of America
+RDU,DURHAM,United States of America
+RMI,RIMINI,Italy
+TLN,TOULON/HYERES,France
+BUE,BUENOS AIRES,Argentina
+KSF,KASSEL,Germany
+TAO,QINGDAO,"China, People’s Republic of"
+EAS,SAN SEBASTIAN,Spain and Canary Islands
+SHA,SHANGHAI,"China, People’s Republic of"
+IEV,KIEV,Ukraine
+CAN,GUANGZHOU,"China, People’s Republic of"
+BJS,BEIJING,"China, People’s Republic of"
+AJA,AJACCIO,France
+FMO,MUNSTER,Germany
+RLG,ROSTOCK-LAAGE,Germany
+TOS,TROMSO,Norway
+KRT,KHARTOUM,Sudan
+RVN,ROVANIEMI,Finland
+KTT,KITTILA,Finland
+AQJ,AQABA,Jordan
+KLU,KLAGENFURT,Austria
+KAO,KUUSAMO,Finland
+DAC,DHAKA,Bangladesh
+ESU,ESSAOUIRA,Morocco
+IVL,IVALO,Finland
+DKR,DAKAR,Senegal
+LLA,LULEA,Sweden
+FDH,FRIEDRICHSHAFEN,Germany
+ANR,ANTWERP,Belgium
+POS,PORT OF SPAIN,Trinidad and Tobago
+VGO,VIGO,Spain and Canary Islands
+SZX,SHENZHEN,"China, People’s Republic of"
+ASB,ASHGABAD,Turkmenistan
+OZZ,OUARZAZATE,Morocco
+BUF,BUFFALO,United States of America
+SRQ,BRADENTON,United States of America
+SYR,SYRACUSE,United States of America
+LON,LONDON,United Kingdom
+SAV,SAVANNAH,United States of America
+RIC,RICHMOND,United States of America
+ALB,ALBANY,United States of America
+FMY,FORT MYERS,United States of America
+MKE,MILWAUKEE,United States of America
+ABQ,ALBUQUERQUE,United States of America
+OMA,OMAHA,United States of America
+GCM,GRAND CAYMAN,Cayman Islands
+CVG,CINCINNATI,United States of America
+SJD,SAN JOSE DEL CABO,Mexico
+SJU,SAN JUAN,Puerto Rico
+SXM,ST MAARTEN,St. Maarten
+SAC,SACRAMENTO,United States of America
+FLL,FORT LAUDERDALE,United States of America
+CHS,CHARLESTON,United States of America
+BTV,BURLINGTON,United States of America
+GSO,GREENSBORO,United States of America
+CMH,COLUMBUS,United States of America
+GSP,GREENVILLE,United States of America
+SAT,SAN ANTONIO,United States of America
+JAX,JACKSONVILLE,United States of America
+PWM,PORTLAND,United States of America
+MYR,MYRTLE BEACH,United States of America
+LFW,LOME,Togo
+PBI,WEST PALM BEACH,United States of America
+SAL,SAN SALVADOR,El Salvador
+STT,ST THOMAS ISLAND,"Virgin Islands, (US)"
+LIM,LIMA,Peru
+STL,ST LOUIS,United States of America
+MSN,MADISON,United States of America
+PTY,PANAMA CITY,Panama
+PVD,PROVIDENCE,United States of America
+OKC,OKLAHOMA CITY,United States of America
+GEO,GEORGETOWN,Guyana
+SDF,LOUISVILLE,United States of America
+GUA,GUATEMALA CITY,Guatemala
+GDL,GUADALAJARA,Mexico
+CHO,CHARLOTTESVILLE,United States of America
+ITH,ITHACA,United States of America
+DSM,DES MOINES,United States of America
+ROC,ROCHESTER,United States of America
+HHH,HILTON HEAD,United States of America
+BGR,BANGOR,United States of America
+BHM,BIRMINGHAM,United States of America
+STI,SANTIAGO,Dominican Republic
+GRR,GRAND RAPIDS,United States of America
+PLS,PROVIDENCIALES,Turks and Caicos Islands
+IND,INDIANAPOLIS,United States of America
+ORF,NORFOLK,United States of America
+PSE,PONCE,Puerto Rico
+TYS,KNOXVILLE,United States of America
+CAE,COLUMBIA,United States of America
+CLE,CLEVELAND,United States of America
+FYV,FAYETTEVILLE,United States of America
+POP,PUERTO PLATA,Dominican Republic
+OGG,KAHULUI,United States of America
+SVD,ST VINCENT,St. Vincent and the Grenadines
+ACK,NANTUCKET,United States of America
+EGE,VAIL/EAGLE,United States of America
+ROA,ROANOKE,United States of America
+CLO,CALI,Colombia
+HAV,HAVANA,Cuba
+MKC,KANSAS CITY,United States of America
+SNA,SANTA ANA,United States of America
+BQN,AGUADILLA,Puerto Rico
+AVL,ASHEVILLE,United States of America
+SKB,ST KITTS,St. Kitts and Nevis
+HNL,HONOLULU,United States of America
+ORH,WORCESTER,United States of America
+HAR,HARRISBURG,United States of America
+SAP,SAN PEDRO SULA,Honduras
+EYW,KEY WEST,United States of America
+MEM,MEMPHIS,United States of America
+SDQ,SANTO DOMINGO,Dominican Republic
+CTG,CARTAGENA,Colombia
+ILM,WILMINGTON,United States of America
+PQI,PRESQUE ISLE,United States of America
+GYE,GUAYAQUIL,Ecuador
+PNS,PENSACOLA,United States of America
+VPS,EGLIN AFB,United States of America
+BON,BONAIRE,"Bonaire, Sint Eustatius and Saba"
+PAP,PORT AU PRINCE,Haiti
+PGD,PUNTA GORDA,United States of America
+BZE,BELIZE,Belize
+BUR,BURBANK,United States of America
+GND,GRENADA,Grenada
+MHT,MANCHESTER,United States of America
+JAC,JACKSON,United States of America
+AGS,AUGUSTA,United States of America
+VRB,VERO BEACH,United States of America
+MDE,MEDELLIN,Colombia
+RNO,RENO,United States of America
+PTP,POINTE A PITRE,Guadeloupe
+FOC,FUZHOU,"China, People’s Republic of"
+PSP,PALM SPRINGS,United States of America
+MVY,MARTHA'S VINEYARD,United States of America
+DAY,DAYTON,United States of America
+SCE,STATE COLLEGE,United States of America
+SLK,SARANAC LAKE,United States of America
+MTJ,MONTROSE,United States of America
+AVP,SCRANTON,United States of America
+CUR,CURACAO,Curacao
+HYA,HYANNIS,United States of America
+YOW,OTTAWA,Canada
+TAB,TOBAGO,Trinidad and Tobago
+BZN,BOZEMAN,United States of America
+TVC,TRAVERSE CITY,United States of America
+RAP,RAPID CITY,United States of America
+MED,MADINAH,Saudi Arabia
+HET,HOHHOT,"China, People’s Republic of"
+FCA,KALISPELL,United States of America
+ANC,ANCHORAGE,United States of America
+MNL,MANILA,Philippines
+HFD,HARTFORD,United States of America
+IPT,WILLIAMSPORT,United States of America
+OAK,OAKLAND,United States of America
+SBN,SOUTH BEND,United States of America
+AKL,AUCKLAND,New Zealand
+GRB,GREEN BAY,United States of America
+LNK,LINCOLN,United States of America
+BMG,BLOOMINGTON,United States of America
+TUL,TULSA,United States of America
+LEX,LEXINGTON,United States of America
+FSD,SIOUX FALLS,United States of America
+LIT,LITTLE ROCK,United States of America
+LAN,LANSING,United States of America
+GPT,GULFPORT/BILOXI,United States of America
+MTY,MONTERREY,Mexico
+MGM,MONTGOMERY,United States of America
+PEI,PEREIRA,Colombia
+HDN,HAYDEN,United States of America
+BGM,BINGHAMTON,United States of America
+RUN,ST DENIS,Reunion
+CAY,CAYENNE,French Guiana
+PUF,PAU,France
+BES,BREST,France
+SFA,SFAX,Tunisia
+BZV,BRAZZAVILLE,Congo
+CZL,CONSTANTINE,Algeria
+DJE,DJERBA,Tunisia
+BHX,BIRMINGHAM,United Kingdom
+YAO,YAOUNDE,Cameroon
+TNR,ANTANANARIVO,Madagascar
+VIL,DAKHLA,Morocco
+EVN,YEREVAN,Armenia
+LAD,LUANDA,Angola
+BRS,BRISTOL,United Kingdom
+DCM,CASTRES,France
+ORN,ORAN,Algeria
+UGC,URGENCH,Uzbekistan
+OUD,OUJDA,Morocco
+FDF,FORT-DE-FRANCE,Martinique
+NIM,NIAMEY,Niger
+FIH,KINSHASA,"Congo, Democratic Republic of"
+TSN,TIANJIN,"China, People’s Republic of"
+CFE,CLERMONT-FERRAND,France
+ABJ,ABIDJAN,Cote d’Ivoire
+LBV,LIBREVILLE,Gabon
+DAR,DAR ES SALAAM,Tanzania
+MIR,MONASTIR,Tunisia
+JIB,DJIBOUTI,Djibouti
+LPY,LE PUY,France
+LRM,LA ROMANA,Dominican Republic
+DLA,DOUALA,Cameroon
+NDJ,N'DJAMENA,Chad
+NDR,NADOR,Morocco
+MLW,MONROVIA,Liberia
+LPL,LIVERPOOL,United Kingdom
+CKY,CONAKRY,Guinea
+BAY,BAIA MARE,Romania
+ALY,ALEXANDRIA,Egypt
+TBS,TBILISI,Georgia
+SSG,MALABO,Equatorial Guinea
+NKC,NOUAKCHOTT,Mauritania
+FNA,FREETOWN,Sierra Leone
+TYN,TAIYUAN,"China, People’s Republic of"
+OUA,OUAGADOUGOU,Burkina Faso
+COO,COTONOU,Benin
+BKO,BAMAKO,Mali
+CWL,CARDIFF,United Kingdom
+DZA,DZAOUDZI,Mayotte
+FOR,FORTALEZA,Brazil
+AUR,AURILLAC,France
+PNR,POINTE NOIRE,Congo
+ZNZ,ZANZIBAR,Tanzania
+FAE,FAROE ISLANDS,Faroe Islands
+BJA,BEJAIA,Algeria
+AAE,ANNABA,Algeria
+TLM,TLEMCEN,Algeria
+BGF,BANGUI,Central African Rep.
+KUT,KUTAISI,Georgia
+QSF,SETIF,Algeria
+TTU,TETOUAN,Morocco
+ELU,EL OUED,Algeria
+ZSA,SAN SALVADOR,Bahamas
+BLJ,BATNA,Algeria
+CFK,CHLEF,Algeria
+BSK,BISKRA,Algeria
+ULH,AL ULA,Saudi Arabia
+DMM,DAMMAM,Saudi Arabia
+SYD,SYDNEY,Australia
+KHN,NANCHANG,"China, People’s Republic of"
+DAD,DA NANG,Vietnam
+TRV,THIRUVANANTHAPURAM,India (including Andaman Isl.)
+CNS,CAIRNS,Australia
+BNE,BRISBANE,Australia
+CNX,CHIANG MAI,Thailand
+CJB,COIMBATORE,India (including Andaman Isl.)
+JKT,JAKARTA,Indonesia
+PEN,PENANG,Malaysia
+DPS,BALI ISLAND,Indonesia
+DVO,DAVAO,Philippines
+NAN,NADI,Fiji
+VTZ,VISHAKHAPATNAM,India (including Andaman Isl.)
+RGN,YANGON,Myanmar
+KCH,KUCHING,Malaysia
+CEB,CEBU,Philippines
+MEL,MELBOURNE,Australia
+PBH,PARO,Bhutan
+POM,PORT MORESBY,Papua New Guinea
+LGK,LANGKAWI,Malaysia
+HDY,HAT YAI,Thailand
+KTM,KATHMANDU,Nepal
+ADL,ADELAIDE,Australia
+PNH,PHNOM PENH,Cambodia
+IPH,IPOH,Malaysia
+TRZ,TIRUCHCHIRAPPALLI,India (including Andaman Isl.)
+SUB,SURABAYA,Indonesia
+MDC,MANADO,Indonesia
+FUK,FUKUOKA,Japan
+MFM,MACAO,"Macao (SAR), China"
+CHC,CHRISTCHURCH,New Zealand
+REP,SIEM REAP,Cambodia
+CCU,KOLKATA,India (including Andaman Isl.)
+NGO,NAGOYA,Japan
+OOL,GOLD COAST,Australia
+IXM,MADURAI,India (including Andaman Isl.)
+MYY,MIRI,Malaysia
+BKI,KOTA KINABALU,Malaysia
+XMN,XIAMEN,"China, People’s Republic of"
+USM,KO SAMUI,Thailand
+KBV,KRABI,Thailand
+VTE,VIENTIANE,Lao People’s Dem. Rep.
+CKG,CHONGQING,"China, People’s Republic of"
+MES,MEDAN,Indonesia
+RDN,REDANG,Malaysia
+NKG,NANJING,"China, People’s Republic of"
+CTU,CHENGDU,"China, People’s Republic of"
+CJU,JEJU,Korea (Rep. of)
+PUS,BUSAN,Korea (Rep. of)
+NHA,NHA TRANG,Vietnam
+CGO,ZHENGZHOU,"China, People’s Republic of"
+NOU,NOUMEA,New Caledonia (including Loyalty Islands)
+ROK,ROCKHAMPTON,Australia
+GAU,GUWAHATI,India (including Andaman Isl.)
+DIL,DILI,Timor Leste
+CGP,CHITTAGONG,Bangladesh
+SIA,XI'AN,"China, People’s Republic of"
+HGH,HANGZHOU,"China, People’s Republic of"
+LOP,PRAYA,Indonesia
+WUH,WUHAN,"China, People’s Republic of"
+UPG,MAKASSAR,Indonesia
+PKU,PEKANBARU,Indonesia
+KMG,KUNMING,"China, People’s Republic of"
+KUA,KUANTAN,Malaysia
+NNG,NANNING,"China, People’s Republic of"
+SPK,SAPPORO,Japan
+PNQ,PUNE,India (including Andaman Isl.)
+SBW,SIBU,Malaysia
+BPN,BALIKPAPAN,Indonesia
+HAK,HAIKOU,"China, People’s Republic of"
+NGS,NAGASAKI,Japan
+OIT,OITA,Japan
+MMY,MIYAKO,Japan
+KMJ,KUMAMOTO,Japan
+ISG,ISHIGAKI,Japan
+ASJ,AMAMI,Japan
+IZO,IZUMO,Japan
+OBO,OBIHIRO,Japan
+OKA,OKINAWA,Japan
+DLC,DALIAN,"China, People’s Republic of"
+TAK,TAKAMATSU,Japan
+KCZ,KOCHI,Japan
+KOJ,KAGOSHIMA,Japan
+TTJ,TOTTORI,Japan
+KUH,KUSHIRO,Japan
+KMI,MIYAZAKI,Japan
+TKS,TOKUSHIMA,Japan
+GAJ,YAMAGATA,Japan
+HIJ,HIROSHIMA,Japan
+SDJ,SENDAI,Japan
+HAC,HACHIJOJIMA,Japan
+KMQ,KOMATSU,Japan
+SYO,SHONAI,Japan
+HKD,HAKODATE,Japan
+SHI,SHIMOJISHIMA,Japan
+MSJ,MISAWA,Japan
+AXT,AKITA,Japan
+TNA,JINAN,"China, People’s Republic of"
+AKJ,ASAHIKAWA,Japan
+YGJ,YONAGO,Japan
+KKJ,KITAKYUSHU,Japan
+UBJ,UBE,Japan
+MYJ,MATSUYAMA,Japan
+IWK,IWAKUNI,Japan
+OKJ,OKAYAMA,Japan
+HSG,SAGA,Japan
+AOJ,AOMORI,Japan
+TOY,TOYAMA,Japan
+SHM,SHIRAHAMA,Japan
+MMB,MEMANBETSU,Japan
+IWJ,MASUDA,Japan
+NTQ,WAJIMA,Japan
+HRB,HARBIN,"China, People’s Republic of"
+GUM,GUAM,Guam
+ONJ,ODATE/NOSHIRO,Japan
+HNA,HANAMAKI,Japan
+MBE,MONBETSU,Japan
+SHB,NAKASHIBETSU,Japan
+WKJ,WAKKANAI,Japan
+UEO,KUMEJIMA,Japan
+KOA,KONA,United States of America
+SPN,SAIPAN,Northern Mariana Islands (incl. Mariana Islands except Guam)
+KHH,KAOHSIUNG,Chinese Taipei
+WUX,WUXI,"China, People’s Republic of"
+YNY,YANGYANG,Korea (Rep. of)
+TAE,DAEGU,Korea (Rep. of)
+SHE,SHENYANG,"China, People’s Republic of"
+NGB,NINGBO,"China, People’s Republic of"

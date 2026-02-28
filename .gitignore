@@ -1,0 +1,27 @@
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+.DS_Store
+.svn
+log/*.log
+tmp/**
+node_modules/
+.sass-cache
+
+# My ignore
+_ai/*
+_xlsx/*
+_tif/*
+_python/*
+_old/*
+_r/*
+_arcgis/*
+_blender/*
+*.ipynb
+*.xlsx
+*.ai
+index_backup.html
+_backdata/*
+*.pptx

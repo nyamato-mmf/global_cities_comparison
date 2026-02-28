@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D mapping</title>
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+            zoom: 1,
+            pitch: 10,
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)', // Lower atmosphere
+                'high-color': 'rgb(36, 92, 223)', // Upper atmosphere
+                'horizon-blend': 0.02, // Atmosphere thickness (default 0.2 at low zooms)
+                'space-color': 'rgb(11, 11, 25)', // Background color
+                'star-intensity': 0.6 // Background star brightness (default 0.35 at low zoooms )
+            });
+        });
+
+
+        map.on('load', () => {
+
+            //##### 人口密度 #####//
+            // Add a source for the city polygons.
+            map.addSource('density', {
+                'type': 'geojson',
+                'data': 'world_pop_density.geojson'
+            });
+            map.addLayer({
+                'id': 'density',
+                'type': 'fill-extrusion',
+                'source': 'density',
+                'paint': {
+                    // Get the `fill-extrusion-color` from the source `color` property.['get', 'color']
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'pop_density'],
+                        0,
+                        '#3288bd',  // Cool Blue
+                        100,
+                        '#66c2a5',  // Turquoise
+                        250,
+                        '#abdda4',  // Light Green
+                        500,
+                        '#e6f598',  // Pale Yellow
+                        1000,
+                        '#fee08b',  // Light Orange
+                        5000,
+                        '#fdae61',  // Orange
+                        10000,
+                        '#f46d43',  // Red-Orange
+                        15000,
+                        '#d53e4f',  // Red
+                        20000,
+                        '#d53e4f'   // Dark Red
+                    ],
+
+                    // Get `fill-extrusion-height` from the source `height` property.
+                    'fill-extrusion-height': ['*', ['get', 'pop_density'], 50],
+
+                    // Get `fill-extrusion-base` from the source `base_height` property.['get', 'base_height']
+                    'fill-extrusion-base': 0,
+
+                    // Make extrusions slightly opaque to see through indoor walls.
+                    'fill-extrusion-opacity': 1.0,
+                }
+            });
+
+
+        // When a click event occurs on a feature in the cities layer, open a popup at the
+        // location of the click, with description HTML from its properties.
+        map.on('click', 'density', function (e) {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(e.features[0].properties["FORMAL_EN"] + ": " + parseInt(e.features[0].properties["pop_density"]).toLocaleString() + "人/㎢")
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the cities layer.
+        map.on('mouseenter', 'density', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'density', function () {
+            map.getCanvas().style.cursor = '';
+        });
+
+            map.addControl(new mapboxgl.NavigationControl());
+
+        });
+    </script>
+
+</body>
+
+</html>

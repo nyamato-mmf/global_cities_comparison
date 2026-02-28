@@ -1,0 +1,2 @@
+- geopandasではうまくshapefile -> geojson変換がうまく行かなかったため、ArcGISのfeature to jsonで対応。
+- geojson書き出しの際、WGS_1984で書き出さないと、Mapboxで読み込めない。
