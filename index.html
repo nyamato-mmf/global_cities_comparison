@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta name="robots" content="noindex">
 
-		<title>beyond2050</title>
+		<title>Global Cities Comparison</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -20,141 +20,31 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				height: 100%;
+				height: 100vh; /* 修正: 100% → 100vh */
 			}
 		</style>
-
-
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
 
 				<!-- タイトル -->
-				<section 
-					data-background-video="./video/Flight Network Video_glitch.mp4" 
-					data-background-video-loop 
-					data-background-video-muted
-					data-preload>
-					<h2>Japan Beyond 2050</h2>
-					<p style="font-size: 30px;">大都市の国際競争力強化 × 地方都市の磁力強化</p>
-				</section>
-
-				<!-- ====================== GDPと人口の推移 ====================== -->
-				<section>
-					<!-- GDP -->
-					<section data-background-color="rgb(255, 255, 255)">
-						<iframe class="stretch center-vertically" data-src="./chartjs/gdp/gdp.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-						<p style="font-size: small;">出典: OECD、World Bank他</p>
-					</section>
-					<!-- 人口 -->
-					<section data-background-color="rgb(255, 255, 255)">
-						<iframe class="stretch center-vertically" data-src="./chartjs/population/population.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-						<p style="font-size: small;">出典: 各国統計データ</p>
-					</section>
-					<!-- 1人あたりGDP -->
-					<section data-background-color="rgb(255, 255, 255)">
-						<iframe class="stretch center-vertically" data-src="./chartjs/gdp_per_capita/gdp_per_capita.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-						<p style="font-size: small;"></p>
-					</section>
+				<section data-background-image="./img/title.jpg">
+					<p style="font-size: 30px;">Global Cities' Competitiveness</p>
+					<h2>世界の都市競争力</h2>
+					<p style="font-size: 30px;">#4 世界都市の比較分析</p>
 				</section>
 
 				<!-- ====================== 国際競争力を高める大都市圏の条件 ====================== -->
 				<section>
 					<!-- 都道府県別GDP -->
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)" data-transition="fade-out" data-transition-speed="slow">
-						<iframe class="stretch" data-src="./mapbox/gdp/gdp.html" data-preload frameborder="0"
-							allowfullscreen></iframe>
-					</section>
-					<!-- 人口 -->
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)" data-transition="fade-out" data-transition-speed="slow">
-						<iframe class="stretch" data-src="./mapbox/gdp/population.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-					</section>
-					<!-- 国際線 -->
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)" data-transition="fade-out" data-transition-speed="slow">
-						<iframe class="stretch" data-src="./mapbox/airports/airports.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
+					<section data-fullscreen="false" data-background-color="rgb(0, 0, 0)" data-transition="fade-out" data-transition-speed="slow">
+						<!-- 修正: class="stretch" → class="r-stretch"、allow="fullscreen" を追加 -->
+						<iframe class="r-stretch" data-src="./mapbox/gdp/gdp.html" data-preload frameborder="0"
+							allowfullscreen allow="fullscreen"></iframe>
 					</section>
 				</section>
-
-				<!-- 回帰分析結果の指標データ -->
-				<!-- Chart.js: 賃金水準 -->
-				<section data-visibility="hidden">
-					<section data-background-color="rgb(255, 255, 255)">
-						<iframe class="stretch center-vertically" data-src="./chartjs/wage_level/wage_level.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-						<p style="font-size: small;">出典: Numbeo</p>
-					</section>
-				</section>
-				
-				<!-- 留学生数および大学 -->
-				<section data-visibility="hidden">
-					 <!-- 留学生数 -->
-						 <section data-fullscreen="true" data-background-color="rgb(0, 0, 0)">
-							 <iframe class="stretch" data-src="./mapbox/intl_students/intl_students.html" data-preload frameborder="0"
-								 allowfullscreen></iframe>
-						 </section>
-	 
-					 <!-- 大学・短大 -->
-						 <section data-fullscreen="true" data-background-color="rgb(0, 0, 0)">
-							 <iframe class="stretch" data-src="./mapbox/universities/universities.html" data-preload frameborder="0"
-								 allowfullscreen></iframe>
-						 </section>
-				 </section>
-				
-				<!-- スタートアップ -->
-				<section data-visibility="hidden">
-					<!-- Chart.js: startups_GPCI -->
-					<section data-background-color="rgb(255, 255, 255)">
-						<iframe class="stretch center-vertically" data-src="./chartjs/startups/startups_gpci.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-						<p style="font-size: small;">出典: Crunchbase</p>
-					</section>
-					<!-- スタートアップ -->
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)">
-						<iframe class="stretch" data-src="./mapbox/startups/startups.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-					</section>
-				</section>
-				
-				<!-- 観光地の充実度 -->
-				<section data-visibility="hidden">
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)">
-						<iframe class="stretch" data-src="./mapbox/tourist_attractions/tourist_attractions.html" data-preload frameborder="0"
-							allowfullscreen></iframe>
-					</section>
-				</section>
-
-				<!-- 国際線ネットワーク -->
-				<section data-visibility="hidden" data-fullscreen="true" data-background-color="rgb(0, 0, 0)">
-					<iframe class="stretch" data-src="./mapbox/flight_network/flight_network.html" data-preload frameborder="0"
-						allowfullscreen></iframe>
-				</section>
-
-			
-				<!-- Chart.js: GPCI レーダーチャート -->
-				<section>
-					<section data-background-color="rgb(255, 255, 255)" style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
-						<iframe style="border: 0; width: 70%; height: 60%;" data-src="./chartjs/gpci_radar/gpci_radar.html" data-preload allowfullscreen></iframe>
-					</section>
-				</section>
-
-
-				<!-- Chart.js: JPC レーダーチャート -->
-				<section>
-					<section data-background-color="rgb(255, 255, 255)" style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
-						<iframe style="border: 0; width: 70%; height: 60%;" data-src="./chartjs/jpc_radar/jpc_radar.html" data-preload allowfullscreen></iframe>
-					</section>
-				</section>
-				
-				<section>
-					<img data-src="./img/mmf_logo.png" style="width: 400px;">
-				</section>			
-				
+					
 			</div>
 		</div>
 
@@ -163,16 +53,12 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
-		<!-- Fullscreen plugin -->
-		<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/fullscreen/plugin.js"></script>
+		<!-- Fullscreen plugin: バージョンを固定 -->
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@4.2.1/fullscreen/plugin.js"></script>
 		<!-- Latex -->
 		<script src="plugin/math/math.js"></script>
 
-
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
 				autoPlayMedia: true,

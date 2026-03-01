@@ -63,13 +63,12 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';
         const map = new mapboxgl.Map({
             container: 'map',
-            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
             style: 'mapbox://styles/mapbox/satellite-v9',
-            projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+            projection: 'globe',
             zoom: 5,
             pitch: 30,
             bearing: -10,
-            center: [138.29058267382655, 37.58725360866509],
+            center: [138.2906, 37.5873],
         });
 
         map.on('style.load', () => {

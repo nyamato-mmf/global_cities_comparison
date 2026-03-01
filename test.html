@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja"><!-- 修正: "jp" → "ja" -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D mapping</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <!-- 修正: 未使用の jQuery・Bootstrap を削除 -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h1 class="indicator-title">県内総生産 (2021年)</h1>
+        <p style="font-size: small; color: white;">出典: 内閣府 経済社会総合研究所</p>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.--------------';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 5,
+            pitch: 30,
+            bearing: -10,
+            center: [138.29058267382655, 37.58725360866509],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+            // ##### 都道府県別GDP ##### //
+            map.addSource('volume', {
+                'type': 'geojson',
+                'data': 'prefectures_GDP.geojson'
+            });
+
+            map.addLayer({
+                'id': 'volume',
+                'type': 'fill-extrusion',
+                'source': 'volume',
+                'paint': {
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'GDP_2021年'],
+                        0,        '#3288bd',
+                        15000000, '#66c2a5',
+                        30000000, '#abdda4',
+                        45000000, '#e6f598',
+                        60000000, '#fee08b',
+                        75000000, '#fdae61',
+                        90000000, '#f46d43',
+                        105000000,'#d53e4f',
+                        120000000,'#d53e4f'
+                    ],
+                    'fill-extrusion-height': ['*', ['get', 'GDP_2021年'], 0.002],
+                    'fill-extrusion-base': 0,
+                    'fill-extrusion-opacity': 1.0,
+                }
+            });
+
+            // クリック時のポップアップ
+            map.on('click', 'volume', (e) => {// 修正: function → アロー関数に統一
+                if (e.features && e.features.length > 0) {
+                    const feature = e.features[0];
+                    const name = feature.properties.name || "Unknown";
+                    const gdp = feature.properties['GDP_2021年']
+                        ? parseInt(feature.properties['GDP_2021年'])
+                        : 0;
+                    // 修正: gdpを兆円に変換してからtoLocaleString()を適用（二重のparseIntを修正）
+                    const gdpTrilion = (gdp / 1000000).toLocaleString();
+
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`<div class="popup-content">${name}: ${gdpTrilion} 兆円</div>`)// 修正: 閉じタグ </div> を追加
+                        .addTo(map);
+                } else {
+                    console.warn('No features found on click.');
+                }
+            });
+
+            // カーソル変更
+            map.on('mouseenter', 'volume', () => {// 修正: function → アロー関数に統一
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'volume', () => {// 修正: function → アロー関数に統一
+                map.getCanvas().style.cursor = '';
+            });
+
+            // 修正: addControl を map.on('load') 内に統一（インデント修正）
+            map.addControl(new mapboxgl.NavigationControl());
+        });
+    </script>
+
+</body>
+
+</html>
