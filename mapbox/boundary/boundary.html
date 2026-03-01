@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundary</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h1 class="indicator-title">行政区域</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
+            pitch: 0,        // 修正: 30 → 0（真正面から見る）
+            bearing: 0,      // 修正: -10 → 0
+            center: [138.2906, 37.5873],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+            // ##### 行政区域 ##### //
+            const boundaries = ['jp', 'fr', 'gb'];
+
+            boundaries.forEach(country => {
+                map.addSource(`boundary_${country}`, {
+                    'type': 'geojson',
+                    'data': `./geojson/boundary_${country}.geojson`
+                });
+                map.addLayer({
+                    'id': `boundary_${country}`,
+                    'type': 'fill',
+                    'source': `boundary_${country}`,
+                    'paint': {
+                        'fill-color': [
+                            'case',
+                            ['==', ['get', 'city'], 1], 'red',
+                            ['==', ['get', 'metropolitan'], 1], 'blue',
+                            'green'
+                        ],
+                        'fill-opacity': 0.5,
+                    },
+                });
+            });
+
+            // ===== ポップアップ表示 ===== 
+            boundaries.forEach(country => {
+                map.on('click', `boundary_${country}`, (e) => {
+                    const feature = e.features[0];
+                    const popupName  = feature.properties.popup_name  || 'N/A';
+                    const popupValue = feature.properties.popup_value || '';
+                    const popupUnit  = feature.properties.popup_unit  || '';
+
+                    new mapboxgl.Popup({ closeButton: true })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div style="max-width:260px;">
+                                <div style="font-weight:bold;">
+                                    ${popupName}: ${popupValue} ${popupUnit}
+                                </div>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', `boundary_${country}`, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', `boundary_${country}`, () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+
+        });
+        
+        // ===== 都市定義 =====
+        const cities = {
+            TYO: { center: [139.6917, 35.6895], label: 'Tokyo' },
+            LON: { center: [-0.1276, 51.5074],  label: 'London' },
+            NYC: { center: [-74.0060, 40.7128], label: 'New York' },
+            PAR: { center: [2.3522, 48.8566],   label: 'Paris' },
+            SIN: { center: [103.8198, 1.3521],  label: 'Singapore' },
+        };
+
+        // ===== ボタン生成 =====
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(cities).forEach(([code, city]) => {
+            const btn = document.createElement('button');
+            btn.textContent = code;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.flyTo({
+                    center: city.center,
+                    zoom: 7,
+                    pitch: 30,
+                    bearing: 0,
+                    duration: 3000,
+                    essential: true,
+                });
+            });
+            buttonContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(buttonContainer);
+
+    </script>
+
+</body>
+
+</html>
