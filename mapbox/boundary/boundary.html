@@ -104,19 +104,22 @@
             });
 
             // ##### 半径5,10,50kmのgeojsonを表示 ##### //
+            // 半径レイヤー
             const radii = [5, 10, 50];
-            radii.forEach(radius => {
-                map.addSource(`radius_${radius}km`, {
+            radii.forEach(r => {
+                map.addSource(`radius_${r}km`, {
                     'type': 'geojson',
-                    'data': `../geojson_common/radius_${radius}km.geojson`
+                    'data': `../geojson_common/radius_${r}km.geojson`
                 });
                 map.addLayer({
-                    'id': `radius_${radius}km`,
+                    'id': `radius_${r}km`,
                     'type': 'line',
-                    'source': `radius_${radius}km`,
+                    'source': `radius_${r}km`,
+                    'layout': { 'visibility': 'none' }, // 初期非表示
                     'paint': {
-                        'line-color': radius === 5 ? 'yellow' : radius === 10 ? 'orange' : 'purple',
-                        'line-width': 2,
+                        'line-color': 'white',
+                        'line-width': 1.5,
+                        'line-dasharray': [2, 2],
                     },
                 });
             });
@@ -162,12 +165,12 @@
             SIN: { center: [103.8513, 1.2830], label: 'Singapore' },
         };
 
-        // ===== ボタン生成 =====
+        // ===== 都市名ボタン生成 =====
         const buttonContainer = document.createElement('div');
         buttonContainer.style.cssText = `
             position: absolute;
             z-index: 2;
-            bottom: 30px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -203,6 +206,49 @@
         });
 
         document.getElementById('map').appendChild(buttonContainer);
+
+
+        // ===== 半径トグルボタン =====
+        const radiusContainer = document.createElement('div');
+        radiusContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        const radii = [5, 10, 50];
+        radii.forEach(r => {
+            const btn = document.createElement('button');
+            btn.textContent = `${r}km`;
+            btn.dataset.active = 'false';
+            btn.style.cssText = `
+                padding: 4px 8px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('click', () => {
+                const isActive = btn.dataset.active === 'true';
+                map.setLayoutProperty(
+                    `radius_${r}km`,
+                    'visibility',
+                    isActive ? 'none' : 'visible'
+                );
+                btn.dataset.active = isActive ? 'false' : 'true';
+                btn.style.background = isActive ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.3)';
+            });
+            radiusContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(radiusContainer);
 
     </script>
 
