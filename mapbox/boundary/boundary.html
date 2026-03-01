@@ -103,6 +103,25 @@
                 });
             });
 
+            // ##### 半径5,10,50kmのgeojsonを表示 ##### //
+            const radii = [5, 10, 50];
+            radii.forEach(radius => {
+                map.addSource(`radius_${radius}km`, {
+                    'type': 'geojson',
+                    'data': `../geojson_common/radius_${radius}km.geojson`
+                });
+                map.addLayer({
+                    'id': `radius_${radius}km`,
+                    'type': 'line',
+                    'source': `radius_${radius}km`,
+                    'paint': {
+                        'line-color': radius === 5 ? 'yellow' : radius === 10 ? 'orange' : 'purple',
+                        'line-width': 2,
+                    },
+                });
+            });
+
+
             // ===== ポップアップ表示 ===== 
             boundaries.forEach(country => {
                 map.on('click', `boundary_${country}`, (e) => {
@@ -136,11 +155,11 @@
         
         // ===== 都市定義 =====
         const cities = {
-            TYO: { center: [139.6917, 35.6895], label: 'Tokyo' },
-            LON: { center: [-0.1276, 51.5074],  label: 'London' },
-            NYC: { center: [-74.0060, 40.7128], label: 'New York' },
-            PAR: { center: [2.3522, 48.8566],   label: 'Paris' },
-            SIN: { center: [103.8198, 1.3521],  label: 'Singapore' },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo' },
+            LON: { center: [-0.1281, 51.5081], label: 'London' },
+            NYC: { center: [-73.9855, 40.7582], label: 'New York' },
+            PAR: { center: [2.3553, 48.8810],  label: 'Paris' },
+            SIN: { center: [103.8513, 1.2830], label: 'Singapore' },
         };
 
         // ===== ボタン生成 =====
