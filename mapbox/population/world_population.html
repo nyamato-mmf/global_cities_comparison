@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h1 class="indicator-title">世界人口</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
+            pitch: 0,        // 修正: 30 → 0（真正面から見る）
+            bearing: 0,      // 修正: -10 → 0
+            center: [138.2906, 37.5873],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+            // ##### 世界人口 ##### //
+            map.addSource('world_population', {
+                'type': 'geojson',
+                'data': './geojson/world_population.geojson'
+            });
+            map.addLayer({
+                'id': 'world_population',
+                'type': 'fill',
+                'source': 'world_population',
+                'paint': {
+                    'fill-color': [
+                        'green'
+                    ],
+                    'fill-opacity': 0.5,
+                },
+            });
+
+            // ===== ポップアップ表示 =====
+                map.on('click', 'world_population', (e) => {
+                    const feature = e.features[0];
+                    const popupName  = feature.properties.popup_name  || 'N/A';
+                    const popupValue = feature.properties.popup_value || '';
+                    const popupUnit  = feature.properties.popup_unit  || '';
+
+                    new mapboxgl.Popup({ closeButton: true })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div style="max-width:260px;">
+                                <div style="font-weight:bold;">
+                                    ${popupName}: ${popupValue} ${popupUnit}
+                                </div>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', 'world_population', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'world_population', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+
+
+    </script>
+
+</body>
+
+</html>
