@@ -90,12 +90,19 @@
                 'source': 'world_population',
                 'paint': {
                     'fill-color': [
-                        'green'
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'POP_EST'],
+                        0,          '#f7fbff',  // 白に近い青（人口少）
+                        10000000,   '#c6dbef',
+                        50000000,   '#6baed6',
+                        100000000,  '#2171b5',
+                        500000000,  '#084594',
+                        1400000000, '#08306b',  // 濃い青（人口多）
                     ],
-                    'fill-opacity': 0.5,
+                    'fill-opacity': 0.7,
                 },
             });
-
             // ===== ポップアップ表示 =====
                 map.on('click', 'world_population', (e) => {
                     const feature = e.features[0];
