@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja"><!-- 修正: "jp" → "ja" -->
+<html lang="ja">
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,6 @@
     <!-- mapbox -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-    <!-- 修正: 未使用の jQuery・Bootstrap を削除 -->
     <style>
         body {
             margin: 0;
@@ -66,7 +65,7 @@
             zoom: 5,
             pitch: 30,
             bearing: -10,
-            center: [138.29058267382655, 37.58725360866509],
+            center: [138.2906, 37.5873],
         });
 
         map.on('style.load', () => {
@@ -113,7 +112,7 @@
             });
 
             // クリック時のポップアップ
-            map.on('click', 'volume', (e) => {// 修正: function → アロー関数に統一
+            map.on('click', 'volume', (e) => {
                 if (e.features && e.features.length > 0) {
                     const feature = e.features[0];
                     const name = feature.properties.name || "Unknown";
@@ -125,7 +124,7 @@
 
                     new mapboxgl.Popup()
                         .setLngLat(e.lngLat)
-                        .setHTML(`<div class="popup-content">${name}: ${gdpTrilion} 兆円</div>`)// 修正: 閉じタグ </div> を追加
+                        .setHTML(`<div class="popup-content">${name}: ${gdpTrilion} 兆円</div>`)
                         .addTo(map);
                 } else {
                     console.warn('No features found on click.');
@@ -133,15 +132,15 @@
             });
 
             // カーソル変更
-            map.on('mouseenter', 'volume', () => {// 修正: function → アロー関数に統一
+            map.on('mouseenter', 'volume', () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
 
-            map.on('mouseleave', 'volume', () => {// 修正: function → アロー関数に統一
+            map.on('mouseleave', 'volume', () => {
                 map.getCanvas().style.cursor = '';
             });
 
-            // 修正: addControl を map.on('load') 内に統一（インデント修正）
+            // addControl を map.on('load') 内に統一
             map.addControl(new mapboxgl.NavigationControl());
         });
     </script>
