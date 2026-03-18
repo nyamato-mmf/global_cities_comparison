@@ -110,7 +110,7 @@
                         15000,'#d53e4f',
                         20000,'#9e0142',
                     ],
-                    'fill-extrusion-height': ['*', ['get', '人口密度'], 10],
+                    'fill-extrusion-height': ['*', ['get', '人口密度'], 5],
                     'fill-extrusion-base': 0,
                     'fill-extrusion-opacity': 0.85,
                 }
@@ -145,14 +145,62 @@
 
         });
 
-        // ===== 地図投影法ボタン =====
-        const projections = {
-            'globe': 'globe',
-            'mercator': 'mercator',
+                // ===== 都市定義 =====
+        const cities = {
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo' },
         };
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = `
+        // ===== 都市名ボタン生成 =====
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(cities).forEach(([code, city]) => {
+            const btn = document.createElement('button');
+            btn.textContent = code;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.flyTo({
+                    center: city.center,
+                    zoom: 7,
+                    pitch: 30,
+                    bearing: 0,
+                    duration: 3000,
+                    essential: true,
+                });
+            });
+            cityContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(cityContainer);
+
+        // ===== 地図投影法定義 =====
+        const projections = {
+            'globe':    'globe',
+            'mercator': 'mercator',
+        };
+        
+        // ===== 地図投影法ボタン =====
+        const projectionContainer = document.createElement('div');
+        projectionContainer.style.cssText = `
             position: absolute;
             z-index: 2;
             bottom: 80px;
@@ -180,10 +228,10 @@
             btn.addEventListener('click', () => {
                 map.setProjection(projection);
             });
-            buttonContainer.appendChild(btn);
+            projectionContainer.appendChild(btn);
         });
 
-        document.getElementById('map').appendChild(buttonContainer);
+        document.getElementById('map').appendChild(projectionContainer);
 
     </script>
 

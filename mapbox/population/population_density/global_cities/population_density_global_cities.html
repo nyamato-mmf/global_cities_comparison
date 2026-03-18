@@ -67,7 +67,7 @@
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/satellite-v9',
-            projection: 'globe',
+            projection: 'mercator',
             zoom: 3,
             pitch: 0,
             bearing: 0,
@@ -86,61 +86,66 @@
 
         map.on('load', () => {
 
-            //##### 人口密度 #####//
-            map.addSource('density', {
-                'type': 'geojson',
-                'data': './geojson/population_density_jp.geojson'
-            });
-            map.addLayer({
-                'id': 'density',
-                'type': 'fill-extrusion',
-                'source': 'density',
-                'paint': {
-                    'fill-extrusion-color': [
-                        'interpolate',
-                        ['linear'],
-                        ['get', '人口密度'],
-                        0,    '#3288bd',
-                        100,  '#66c2a5',
-                        250,  '#abdda4',
-                        500,  '#e6f598',
-                        1000, '#fee08b',
-                        5000, '#fdae61',
-                        10000,'#f46d43',
-                        15000,'#d53e4f',
-                        20000,'#9e0142',
-                    ],
-                    'fill-extrusion-height': ['*', ['get', '人口密度'], 10],
-                    'fill-extrusion-base': 0,
-                    'fill-extrusion-opacity': 0.85,
-                }
-            });
+            // ##### グローバル都市 ##### //
+            const globalCities = ['tyo', 'lon', 'nyc', 'par', 'sin'];
 
-            // ===== ポップアップ表示 =====
-            map.on('click', 'density', (e) => {
-                const feature = e.features[0];
-                const popupName  = feature.properties.name1 || 'N/A';
-                const popupValue = feature.properties['人口密度'] || '';
-                const popupUnit  = '人/km²';
+            globalCities.forEach(globalCity => {
+                const sourceId = `50km_${globalCity}`;
+                const layerId  = `density_${globalCity}`;
+                map.addSource(sourceId, {
+                    'type': 'geojson',
+                    'data': `./geojson/${sourceId}.geojson`
+                });
 
-                new mapboxgl.Popup({ closeButton: true })
-                    .setLngLat(e.lngLat)
-                    .setHTML(`
-                        <div style="max-width:260px;">
-                            <div style="font-weight:bold;">
-                                ${popupName}: ${popupValue} ${popupUnit}
+                map.addLayer({
+                    'id': layerId,
+                    'type': 'fill-extrusion',
+                    'source': sourceId,
+                    'paint': {
+                        'fill-extrusion-color': [
+                            'interpolate', ['linear'], ['get', 'Density'],
+                            0,     '#3288bd',
+                            100,   '#66c2a5',
+                            250,   '#abdda4',
+                            500,   '#e6f598',
+                            1000,  '#fee08b',
+                            5000,  '#fdae61',
+                            10000, '#f46d43',
+                            15000, '#d53e4f',
+                            20000, '#9e0142'
+                        ],
+                        'fill-extrusion-height':  ['*', ['get', 'Density'], 5],
+                        'fill-extrusion-base':    0,
+                        'fill-extrusion-opacity': 0.85,
+                    }
+                });
+
+                // ===== ポップアップ表示 =====
+                map.on('click', layerId, (e) => {
+                    const feature   = e.features[0];
+                    const popupName  = feature.properties.name1   || 'N/A';
+                    const popupValue = feature.properties['Density'] || '';
+                    const popupUnit  = '人/km²';
+
+                    new mapboxgl.Popup({ closeButton: true })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div style="max-width:260px;">
+                                <div style="font-weight:bold;">
+                                    ${popupName}: ${popupValue} ${popupUnit}
+                                </div>
                             </div>
-                        </div>
-                    `)
-                    .addTo(map);
-            });
+                        `)
+                        .addTo(map);
+                });
 
-            map.on('mouseenter', 'density', () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
+                map.on('mouseenter', layerId, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
 
-            map.on('mouseleave', 'density', () => {
-                map.getCanvas().style.cursor = '';
+                map.on('mouseleave', layerId, () => {
+                    map.getCanvas().style.cursor = '';
+                });
             });
 
         });
@@ -155,8 +160,8 @@
         };
 
         // ===== 都市名ボタン生成 =====
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = `
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
             position: absolute;
             z-index: 2;
             bottom: 120px;
@@ -191,10 +196,10 @@
                     essential: true,
                 });
             });
-            buttonContainer.appendChild(btn);
+            cityContainer.appendChild(btn);
         });
 
-        document.getElementById('map').appendChild(buttonContainer);
+        document.getElementById('map').appendChild(cityContainer);
 
         // ===== 地図投影法定義 =====
         const projections = {
