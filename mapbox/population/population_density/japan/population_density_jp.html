@@ -86,21 +86,22 @@
 
         map.on('load', () => {
 
-            // ##### 世界人口 ##### //
-            map.addSource('population_density_jp', {
+                       //##### 人口密度 #####//
+            // Add a source for the city polygons.
+            map.addSource('density', {
                 'type': 'geojson',
                 'data': './geojson/population_density_jp.geojson'
             });
             map.addLayer({
-                'id': 'population_density_jp',
-                'type': 'fill',
-                'source': 'population_density_jp',
+                'id': 'density',
+                'type': 'fill-extrusion',
+                'source': 'density',
                 'paint': {
                     // Get the `fill-extrusion-color` from the source `color` property.['get', 'color']
                     'fill-extrusion-color': [
                         'interpolate',
                         ['linear'],
-                        ['get', 'Pop_dens'],
+                        ['get', '人口密度'],
                         0,
                         '#3288bd',  // Cool Blue
                         100,
@@ -122,17 +123,17 @@
                     ],
 
                     // Get `fill-extrusion-height` from the source `height` property.
-                    'fill-extrusion-height': ['*', ['get', 'Pop_dens'], 10],
+                    'fill-extrusion-height': ['*', ['get', '人口密度'], 10],
 
                     // Get `fill-extrusion-base` from the source `base_height` property.['get', 'base_height']
                     'fill-extrusion-base': 0,
 
                     // Make extrusions slightly opaque to see through indoor walls.
                     'fill-extrusion-opacity': 1.0,
-                },
+                }
             });
             // ===== ポップアップ表示 =====
-                map.on('click', 'population_density_jp', (e) => {
+                map.on('click', 'density', (e) => {
                     const feature = e.features[0];
                     const popupName  = feature.properties.WB_NAME  || 'N/A';
                     const popupValue = feature.properties.POP_EST || '';
