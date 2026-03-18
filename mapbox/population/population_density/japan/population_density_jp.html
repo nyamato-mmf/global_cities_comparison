@@ -67,10 +67,10 @@
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/satellite-v9',
-            projection: 'mercator',
-            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
-            pitch: 0,        // 修正: 30 → 0（真正面から見る）
-            bearing: 0,      // 修正: -10 → 0
+            projection: 'globe',
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
             center: [138.2906, 37.5873],
         });
 
@@ -87,7 +87,6 @@
         map.on('load', () => {
 
             //##### 人口密度 #####//
-            // Add a source for the city polygons.
             map.addSource('density', {
                 'type': 'geojson',
                 'data': './geojson/population_density_jp.geojson'
@@ -97,71 +96,94 @@
                 'type': 'fill-extrusion',
                 'source': 'density',
                 'paint': {
-                    // Get the `fill-extrusion-color` from the source `color` property.['get', 'color']
                     'fill-extrusion-color': [
                         'interpolate',
                         ['linear'],
                         ['get', '人口密度'],
-                        0,
-                        '#3288bd',  // Cool Blue
-                        100,
-                        '#66c2a5',  // Turquoise
-                        250,
-                        '#abdda4',  // Light Green
-                        500,
-                        '#e6f598',  // Pale Yellow
-                        1000,
-                        '#fee08b',  // Light Orange
-                        5000,
-                        '#fdae61',  // Orange
-                        10000,
-                        '#f46d43',  // Red-Orange
-                        15000,
-                        '#d53e4f',  // Red
-                        20000,
-                        '#d53e4f'   // Red
+                        0,    '#3288bd',
+                        100,  '#66c2a5',
+                        250,  '#abdda4',
+                        500,  '#e6f598',
+                        1000, '#fee08b',
+                        5000, '#fdae61',
+                        10000,'#f46d43',
+                        15000,'#d53e4f',
+                        20000,'#9e0142',
                     ],
-
-                    // Get `fill-extrusion-height` from the source `height` property.
                     'fill-extrusion-height': ['*', ['get', '人口密度'], 10],
-
-                    // Get `fill-extrusion-base` from the source `base_height` property.['get', 'base_height']
                     'fill-extrusion-base': 0,
-
-                    // Make extrusions slightly opaque to see through indoor walls.
-                    'fill-extrusion-opacity': 1.0,
+                    'fill-extrusion-opacity': 0.85,
                 }
             });
+
             // ===== ポップアップ表示 =====
-                map.on('click', 'density', (e) => {
-                    const feature = e.features[0];
-                    const popupName  = feature.properties.name1  || 'N/A';
-                    const popupValue = feature.properties.人口密度 || '';
-                    const popupUnit  = '人';
+            map.on('click', 'density', (e) => {
+                const feature = e.features[0];
+                const popupName  = feature.properties.name1 || 'N/A';
+                const popupValue = feature.properties['人口密度'] || '';
+                const popupUnit  = '人/km²';
 
-                    new mapboxgl.Popup({ closeButton: true })
-                        .setLngLat(e.lngLat)
-                        .setHTML(`
-                            <div style="max-width:260px;">
-                                <div style="font-weight:bold;">
-                                    ${popupName}: ${popupValue} ${popupUnit}
-                                </div>
+                new mapboxgl.Popup({ closeButton: true })
+                    .setLngLat(e.lngLat)
+                    .setHTML(`
+                        <div style="max-width:260px;">
+                            <div style="font-weight:bold;">
+                                ${popupName}: ${popupValue} ${popupUnit}
                             </div>
-                        `)
-                        .addTo(map);
-                });
-
-                map.on('mouseenter', 'density', () => {
-                    map.getCanvas().style.cursor = 'pointer';
-                });
-
-                map.on('mouseleave', 'density', () => {
-                    map.getCanvas().style.cursor = '';
-                });
+                        </div>
+                    `)
+                    .addTo(map);
             });
 
+            map.on('mouseenter', 'density', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
 
+            map.on('mouseleave', 'density', () => {
+                map.getCanvas().style.cursor = '';
+            });
 
+        });
+
+        // ===== 地図投影法ボタン =====
+        const projections = {
+            'globe': 'globe',
+            'mercator': 'mercator',
+        };
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(projections).forEach(([label, projection]) => {
+            const btn = document.createElement('button');
+            btn.textContent = label;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.setProjection(projection);
+            });
+            buttonContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(buttonContainer);
 
     </script>
 
