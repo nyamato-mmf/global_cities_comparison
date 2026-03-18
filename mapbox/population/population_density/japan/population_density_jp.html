@@ -67,7 +67,7 @@
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/satellite-v9',
-            projection: 'globe',
+            projection: 'mercator',
             zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
             pitch: 0,        // 修正: 30 → 0（真正面から見る）
             bearing: 0,      // 修正: -10 → 0
@@ -86,7 +86,7 @@
 
         map.on('load', () => {
 
-                       //##### 人口密度 #####//
+            //##### 人口密度 #####//
             // Add a source for the city polygons.
             map.addSource('density', {
                 'type': 'geojson',
@@ -135,8 +135,8 @@
             // ===== ポップアップ表示 =====
                 map.on('click', 'density', (e) => {
                     const feature = e.features[0];
-                    const popupName  = feature.properties.WB_NAME  || 'N/A';
-                    const popupValue = feature.properties.POP_EST || '';
+                    const popupName  = feature.properties.name1  || 'N/A';
+                    const popupValue = feature.properties.人口密度 || '';
                     const popupUnit  = '人';
 
                     new mapboxgl.Popup({ closeButton: true })
@@ -151,11 +151,11 @@
                         .addTo(map);
                 });
 
-                map.on('mouseenter', 'population_density_jp', () => {
+                map.on('mouseenter', 'density', () => {
                     map.getCanvas().style.cursor = 'pointer';
                 });
 
-                map.on('mouseleave', 'population_density_jp', () => {
+                map.on('mouseleave', 'density', () => {
                     map.getCanvas().style.cursor = '';
                 });
             });
