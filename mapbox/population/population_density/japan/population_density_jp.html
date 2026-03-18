@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h1 class="indicator-title">世界人口</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // 環境に応じてトークンを切り替える
+        const isDev = window.location.hostname === 'localhost' 
+                || window.location.hostname === '127.0.0.1';
+
+        const MAPBOX_TOKEN = isDev
+        ? 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ'    // 開発用
+        : 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';   // 本番用 (GitHub Pages)
+
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
+            pitch: 0,        // 修正: 30 → 0（真正面から見る）
+            bearing: 0,      // 修正: -10 → 0
+            center: [138.2906, 37.5873],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+            // ##### 世界人口 ##### //
+            map.addSource('world_population', {
+                'type': 'geojson',
+                'data': './geojson/world_population.geojson'
+            });
+            map.addLayer({
+                'id': 'world_population',
+                'type': 'fill',
+                'source': 'world_population',
+                'paint': {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'POP_EST'],
+                        0,          '#fff5f0',  // 白に近い赤（人口少）
+                        10000000,   '#fcc4a4',
+                        50000000,   '#fc8d59',
+                        100000000,  '#e34a33',
+                        500000000,  '#b30000',
+                        1400000000, '#67000d',  // 濃い赤（人口多）
+                    ],
+                },
+            });
+            // ===== ポップアップ表示 =====
+                map.on('click', 'world_population', (e) => {
+                    const feature = e.features[0];
+                    const popupName  = feature.properties.WB_NAME  || 'N/A';
+                    const popupValue = feature.properties.POP_EST || '';
+                    const popupUnit  = '人';
+
+                    new mapboxgl.Popup({ closeButton: true })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div style="max-width:260px;">
+                                <div style="font-weight:bold;">
+                                    ${popupName}: ${popupValue} ${popupUnit}
+                                </div>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', 'world_population', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'world_population', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+
+
+
+
+    </script>
+
+</body>
+
+</html>
