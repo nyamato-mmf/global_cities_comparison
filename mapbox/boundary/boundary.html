@@ -54,14 +54,21 @@
     <div id="map"></div>
 
     <script>
+        // 環境に応じてトークンを切り替える
+        const isDev = window.location.hostname === 'localhost' 
+                || window.location.hostname === '127.0.0.1';
 
-        mapboxgl.accessToken = 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';
+        const MAPBOX_TOKEN = isDev
+        ? 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ'    // 開発用
+        : 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';   // 本番用 (GitHub Pages)
+
+        mapboxgl.accessToken = MAPBOX_TOKEN;
 
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/satellite-v9',
             projection: 'globe',
-            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
+            zoom: 1.5,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
             pitch: 0,        // 修正: 30 → 0（真正面から見る）
             bearing: 0,      // 修正: -10 → 0
             center: [138.2906, 37.5873],
