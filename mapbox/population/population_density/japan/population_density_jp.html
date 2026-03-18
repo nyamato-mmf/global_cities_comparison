@@ -48,7 +48,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar">
-        <h1 class="indicator-title">世界人口</h1>
+        <h1 class="indicator-title">人口密度（日本）</h1>
     </div>
 
     <div id="map"></div>
@@ -87,30 +87,52 @@
         map.on('load', () => {
 
             // ##### 世界人口 ##### //
-            map.addSource('world_population', {
+            map.addSource('population_density_jp', {
                 'type': 'geojson',
-                'data': './geojson/world_population.geojson'
+                'data': './geojson/population_density_jp.geojson'
             });
             map.addLayer({
-                'id': 'world_population',
+                'id': 'population_density_jp',
                 'type': 'fill',
-                'source': 'world_population',
+                'source': 'population_density_jp',
                 'paint': {
-                    'fill-color': [
+                    // Get the `fill-extrusion-color` from the source `color` property.['get', 'color']
+                    'fill-extrusion-color': [
                         'interpolate',
                         ['linear'],
-                        ['get', 'POP_EST'],
-                        0,          '#fff5f0',  // 白に近い赤（人口少）
-                        10000000,   '#fcc4a4',
-                        50000000,   '#fc8d59',
-                        100000000,  '#e34a33',
-                        500000000,  '#b30000',
-                        1400000000, '#67000d',  // 濃い赤（人口多）
+                        ['get', 'Pop_dens'],
+                        0,
+                        '#3288bd',  // Cool Blue
+                        100,
+                        '#66c2a5',  // Turquoise
+                        250,
+                        '#abdda4',  // Light Green
+                        500,
+                        '#e6f598',  // Pale Yellow
+                        1000,
+                        '#fee08b',  // Light Orange
+                        5000,
+                        '#fdae61',  // Orange
+                        10000,
+                        '#f46d43',  // Red-Orange
+                        15000,
+                        '#d53e4f',  // Red
+                        20000,
+                        '#d53e4f'   // Red
                     ],
+
+                    // Get `fill-extrusion-height` from the source `height` property.
+                    'fill-extrusion-height': ['*', ['get', 'Pop_dens'], 10],
+
+                    // Get `fill-extrusion-base` from the source `base_height` property.['get', 'base_height']
+                    'fill-extrusion-base': 0,
+
+                    // Make extrusions slightly opaque to see through indoor walls.
+                    'fill-extrusion-opacity': 1.0,
                 },
             });
             // ===== ポップアップ表示 =====
-                map.on('click', 'world_population', (e) => {
+                map.on('click', 'population_density_jp', (e) => {
                     const feature = e.features[0];
                     const popupName  = feature.properties.WB_NAME  || 'N/A';
                     const popupValue = feature.properties.POP_EST || '';
@@ -128,11 +150,11 @@
                         .addTo(map);
                 });
 
-                map.on('mouseenter', 'world_population', () => {
+                map.on('mouseenter', 'population_density_jp', () => {
                     map.getCanvas().style.cursor = 'pointer';
                 });
 
-                map.on('mouseleave', 'world_population', () => {
+                map.on('mouseleave', 'population_density_jp', () => {
                     map.getCanvas().style.cursor = '';
                 });
             });
