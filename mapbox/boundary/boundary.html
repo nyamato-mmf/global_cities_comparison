@@ -174,8 +174,8 @@
         };
 
         // ===== 都市名ボタン生成 =====
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = `
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
             position: absolute;
             z-index: 2;
             bottom: 80px;
@@ -210,10 +210,10 @@
                     essential: true,
                 });
             });
-            buttonContainer.appendChild(btn);
+            cityContainer.appendChild(btn);
         });
 
-        document.getElementById('map').appendChild(buttonContainer);
+        document.getElementById('map').appendChild(cityContainer);
 
 
         // ===== 半径トグルボタン =====
