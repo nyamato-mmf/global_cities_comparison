@@ -147,7 +147,8 @@
 
         // ===== 都市定義 =====
         const cities = {
-            TYO: { center: [139.7528, 35.6854], label: 'Tokyo' },
+            GLOBE: { center: [138.2906, 37.5873], label: 'Globe', zoom: 3, pitch: 0, bearing: 0 },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 7, pitch: 30, bearing: 0 },
         };
 
         // ===== 都市名ボタン生成 =====
@@ -180,9 +181,9 @@
             btn.addEventListener('click', () => {
                 map.flyTo({
                     center: city.center,
-                    zoom: 7,
-                    pitch: 30,
-                    bearing: 0,
+                    zoom: city.zoom,
+                    pitch: city.pitch,
+                    bearing: city.bearing,
                     duration: 3000,
                     essential: true,
                 });
