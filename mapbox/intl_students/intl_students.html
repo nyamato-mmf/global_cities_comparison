@@ -68,9 +68,9 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/satellite-v9',
             projection: 'globe',
-            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
-            pitch: 0,        // 修正: 30 → 0（真正面から見る）
-            bearing: 0,      // 修正: -10 → 0
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
             center: [138.2906, 37.5873],
         });
 
@@ -86,28 +86,30 @@
 
         map.on('load', () => {
 
-            // ##### 行政区域 ##### //
-            const boundaries = ['jp', 'fr', 'gb'];
+            //##### 指標データ #####//
+            map.addSource('intl_students', {
+                type: 'geojson',
+                // Use a URL for the value for the `data` property.
+                data: './geojson/intl_students.geojson' 
+            });
 
-            boundaries.forEach(country => {
-                map.addSource(`boundary_${country}`, {
-                    'type': 'geojson',
-                    'data': `./geojson/boundary_${country}.geojson`
-                });
-                map.addLayer({
-                    'id': `boundary_${country}`,
-                    'type': 'fill',
-                    'source': `boundary_${country}`,
-                    'paint': {
-                        'fill-color': [
-                            'case',
-                            ['==', ['get', 'city'], 1], 'red',
-                            ['==', ['get', 'metropolitan'], 1], 'blue',
-                            'green'
-                        ],
-                        'fill-opacity': 0.5,
-                    },
-                });
+            map.addLayer({
+                'id': 'intl_students-layer',
+                'type': 'circle',
+                'source': 'intl_students',
+                'paint': {
+                    // Adjust circle radius based on the 'radius' property in the GeoJSON file
+                    'circle-radius': [
+                        'interpolate', 
+                        ['linear'], 
+                        ['get', '留学生数'], 
+                        1, 5,  // Minimum value (1) maps to a circle radius of 2
+                        25000, 30 // Maximum value (10) maps to a circle radius of 20
+                    ],
+                    'circle-stroke-width': 1,
+                    'circle-color': 'blue',
+                    'circle-stroke-color': 'white'
+                }
             });
 
             // ##### 半径5,10,50kmのgeojsonを表示 ##### //
@@ -132,32 +134,35 @@
             });
 
             // ===== ポップアップ表示 ===== 
-            boundaries.forEach(country => {
-                map.on('click', `boundary_${country}`, (e) => {
-                    const feature = e.features[0];
-                    const popupName  = feature.properties.popup_name  || 'N/A';
-                    const popupValue = feature.properties.popup_value || '';
-                    const popupUnit  = feature.properties.popup_unit  || '';
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
 
-                    new mapboxgl.Popup({ closeButton: true })
-                        .setLngLat(e.lngLat)
-                        .setHTML(`
-                            <div style="max-width:260px;">
-                                <div style="font-weight:bold;">
-                                    ${popupName}: ${popupValue} ${popupUnit}
-                                </div>
-                            </div>
-                        `)
-                        .addTo(map);
-                });
+            map.on('mouseenter', 'intl_students-layer', (e) => {
+                map.getCanvas().style.cursor = 'pointer';
 
-                map.on('mouseenter', `boundary_${country}`, () => {
-                    map.getCanvas().style.cursor = 'pointer';
-                });
+                const coordinates = e.features[0].geometry.coordinates.slice();      
+                const univ_name = e.features[0].properties["Name"];
+                const num_intl_students = e.features[0].properties["留学生数"];
 
-                map.on('mouseleave', `boundary_${country}`, () => {
-                    map.getCanvas().style.cursor = '';
-                });
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                popup.setLngLat(coordinates)
+                    .setHTML(
+                        `<div style="font-size: 16px;">
+                            <strong>${univ_name}</strong><br>
+                            留学生数: ${num_intl_students}人
+                        </div>`
+                    )
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', 'intl_students-layer', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
             });
 
         });
@@ -165,11 +170,11 @@
         // ===== 都市定義 =====
         const cities = {
             GLOBE: { center: [138.2906, 37.5873], label: 'Globe', zoom: 3, pitch: 0, bearing: 0 },
-            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 7, pitch: 30, bearing: 0 },
-            LON: { center: [-0.1281, 51.5081], label: 'London', zoom: 7, pitch: 30, bearing: 0 },
-            NYC: { center: [-73.9855, 40.7582], label: 'New York', zoom: 7, pitch: 30, bearing: 0 },
-            PAR: { center: [2.3553, 48.8810],  label: 'Paris', zoom: 7, pitch: 30, bearing: 0 },
-            SIN: { center: [103.8513, 1.2830], label: 'Singapore', zoom: 7, pitch: 30, bearing: 0 },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 9, pitch: 30, bearing: 0 },
+            LON: { center: [-0.1281, 51.5081], label: 'London', zoom: 9, pitch: 30, bearing: 0 },
+            NYC: { center: [-73.9855, 40.7582], label: 'New York', zoom: 9, pitch: 30, bearing: 0 },
+            PAR: { center: [2.3553, 48.8810],  label: 'Paris', zoom: 9, pitch: 30, bearing: 0 },
+            SIN: { center: [103.8513, 1.2830], label: 'Singapore', zoom: 9, pitch: 30, bearing: 0 },
         };
 
         // ===== 都市名ボタン生成 =====
