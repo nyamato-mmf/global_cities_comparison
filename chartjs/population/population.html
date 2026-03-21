@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Chart with Chart.js</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<body class="container d-flex align-items-center" style="min-height: 100vh;">
+    <div class="row w-100">
+        <div class="col d-flex justify-content-center">
+            <canvas id="graph_01"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        // Raw data
+        const rawData = [
+        {
+          "2010": 309321666,
+          "2011": 311556874,
+          "2012": 313830990,
+          "2013": 315993715,
+          "2014": 318301008,
+          "2015": 320635163,
+          "2016": 322941311,
+          "2017": 324985539,
+          "2018": 326687501,
+          "2019": 329153000,
+          "2020": 329878000,
+          "2021": 332300000,
+          "2022": 332800000,
+          "国名": "USA",
+          "RGBコード": "250, 191, 28"
+        },
+        {
+          "2010": 128070000,
+          "2011": 127833000,
+          "2012": 127629000,
+          "2013": 127445000,
+          "2014": 127276000,
+          "2015": 127141000,
+          "2016": 126994511,
+          "2017": 126785797,
+          "2018": 126529100,
+          "2019": 126180000,
+          "2020": 125967000,
+          "2021": 125400000,
+          "2022": 124900000,
+          "国名": "Japan",
+          "RGBコード": "35, 127, 196"
+        },
+        {
+          "2010": 62759500,
+          "2011": 63285100,
+          "2012": 63710800,
+          "2013": 64138700,
+          "2014": 64619500,
+          "2015": 65088100,
+          "2016": 65607100,
+          "2017": 65966000,
+          "2018": 66288900,
+          "2019": 66630700,
+          "2020": 66744100,
+          "2021": 66983500,
+          "2022": 67602800,
+          "国名": "UK",
+          "RGBコード": "219, 83, 52"
+        },
+        {
+          "2010": 5076732,
+          "2011": 5183688,
+          "2012": 5312437,
+          "2013": 5399162,
+          "2014": 5469724,
+          "2015": 5535002,
+          "2016": 5607283,
+          "2017": 5612253,
+          "2018": 5638676,
+          "2019": 5804000,
+          "2020": 5769000,
+          "2021": 5700000,
+          "2022": 5500000,
+          "国名": "Singapore",
+          "RGBコード": "145, 112, 175"
+        }
+      ];
+
+        // Process data for Chart.js
+        const years = Object.keys(rawData[0]).filter(key => key !== "国名" && key !== "RGBコード");
+        const datasets = rawData.map(country => ({
+            label: country["国名"],
+            data: years.map(year => country[year]),
+            fill: false,
+            borderColor: `rgb(${country["RGBコード"] || '0, 0, 0'})`,
+            tension: 0.1
+        }));
+
+        const config = {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 18 
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '人口の推移',
+                        font: {
+                            size: 24
+                        }
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        new Chart(document.getElementById('graph_01'), config);
+    </script>
+</body>
+</html>

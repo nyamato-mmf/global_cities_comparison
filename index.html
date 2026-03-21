@@ -56,9 +56,23 @@
 				
 				<!-- ====================== 経済分野 ====================== -->
 				<section>
-					<!-- 都道府県別GDP -->
-					<section data-fullscreen="true" data-background-color="rgb(0, 0, 0)" data-transition="fade-out" data-transition-speed="slow">
-						<iframe class="r-stretch" data-src="./mapbox/gdp/gdp.html" data-preload frameborder="0" allow="fullscreen"></iframe>
+					<!-- GDP -->
+					<section data-background-color="rgb(255, 255, 255)">
+						<iframe class="stretch center-vertically" data-src="./chartjs/gdp/gdp.html" data-preload frameborder="0"
+						allowfullscreen></iframe>
+						<p style="font-size: small;">出典: OECD、World Bank他</p>
+					</section>
+					<!-- 人口 -->
+					<section data-background-color="rgb(255, 255, 255)">
+						<iframe class="stretch center-vertically" data-src="./chartjs/population/population.html" data-preload frameborder="0"
+						allowfullscreen></iframe>
+						<p style="font-size: small;">出典: 各国統計データ</p>
+					</section>
+					<!-- 1人あたりGDP -->
+					<section data-background-color="rgb(255, 255, 255)">
+						<iframe class="stretch center-vertically" data-src="./chartjs/gdp_per_capita/gdp_per_capita.html" data-preload frameborder="0"
+						allowfullscreen></iframe>
+						<p style="font-size: small;"></p>
 					</section>
 				</section>
 				
