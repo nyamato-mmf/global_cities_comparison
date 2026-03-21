@@ -137,6 +137,52 @@
                 });
             });
 
+        // ===== 都市定義 =====
+        const cities = {
+            GLOBE: { center: [138.2906, 37.5873], label: 'Globe', zoom: 3, pitch: 0, bearing: 0 },
+        };
+
+        // ===== 都市名ボタン生成 =====
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(cities).forEach(([code, city]) => {
+            const btn = document.createElement('button');
+            btn.textContent = code;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.flyTo({
+                    center: city.center,
+                    zoom: city.zoom,
+                    pitch: city.pitch,
+                    bearing: city.bearing,
+                    duration: 3000,
+                    essential: true,
+                });
+            });
+            cityContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(cityContainer);
 
 
 
