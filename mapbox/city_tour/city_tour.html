@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Cities Comparison</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2 class="indicator-title">City Tour</h2>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // 環境に応じてトークンを切り替える
+        const isDev = window.location.hostname === 'localhost' 
+                || window.location.hostname === '127.0.0.1';
+
+        const MAPBOX_TOKEN = isDev
+        ? 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ'    // 開発用
+        : 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';   // 本番用 (GitHub Pages)
+
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 3,       // 修正: 5 → 1.5（地球全体が見えるズームレベル）
+            pitch: 0,        // 修正: 30 → 0（真正面から見る）
+            bearing: 0,      // 修正: -10 → 0
+            center: [138.2906, 37.5873],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+        /* --------------------------------------------------------
+        　映像
+        -------------------------------------------------------- */
+        map.loadImage(
+            '../../img/marker-video.png',
+            (error, image) => {
+                if (error) throw error;
+
+                // Add the image to the map style.
+                map.addImage('videoicon', image);
+
+                // Add a data source containing several points' features.
+                map.addSource('videos', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': [
+                            {
+                                'type': 'Feature',
+                                'properties': {
+                                    "name": "LON",
+                                    'description':
+                                        '<strong>London</strong><p><iframe width="200" src="../../video/LON_tour.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>',
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-0.1281, 51.5081]
+                                }
+                            },
+                            {
+                                'type': 'Feature',
+                                'properties': {
+                                    "name": "NYC",
+                                    'description':
+                                        '<strong>New York</strong><p><iframe width="200" src="../../video/NYC_tour.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>',
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-73.9855, 40.7582]
+                                }
+                            },
+                            {
+                                'type': 'Feature',
+                                'properties': {
+                                    "name": "PAR",
+                                    'description':
+                                        '<strong>Paris</strong><p><iframe width="200" src="../../video/PAR_tour.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>',
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [2.3522, 48.8566]
+                                }
+                            },
+                        ]
+                    }
+                });
+
+                // Add a layer to use the image to represent the data.
+                map.addLayer({
+                    'id': 'videos',
+                    'type': 'symbol',
+                    'source': 'videos', // reference the data source
+                    'layout': {
+                        'icon-image': 'videoicon', // reference the image
+                        'icon-size': 1,
+                        'visibility': 'visible',
+                    },
+                });
+                // On click, get coordinates and a description.
+                map.on('click', 'videos', (e) => {
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+                    const description = e.features[0].properties.description;
+
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+
+                    // Create a popup object
+                    new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(description)
+                        .addTo(map);
+
+                });
+                map.on('mouseenter', 'videos', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+                map.on('mouseleave', 'videos', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            }
+        );
+
+
+
+        });
+        
+        // ===== 都市定義 =====
+        const cities = {
+            GLOBE: { center: [138.2906, 37.5873], label: 'Globe', zoom: 3, pitch: 0, bearing: 0 },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 7, pitch: 0, bearing: 0 },
+            LON: { center: [-0.1281, 51.5081], label: 'London', zoom: 7, pitch: 0, bearing: 0 },
+            NYC: { center: [-73.9855, 40.7582], label: 'New York', zoom: 7, pitch: 0, bearing: 0 },
+            PAR: { center: [2.34732386, 48.854872],  label: 'Paris', zoom: 7, pitch: 0, bearing: 0 },
+            SIN: { center: [103.8513, 1.2830], label: 'Singapore', zoom: 7, pitch: 0, bearing: 0 },
+        };
+
+        // ===== 都市名ボタン生成 =====
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(cities).forEach(([code, city]) => {
+            const btn = document.createElement('button');
+            btn.textContent = code;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.flyTo({
+                    center: city.center,
+                    zoom: city.zoom,
+                    pitch: city.pitch,
+                    bearing: city.bearing,
+                    duration: 3000,
+                    essential: true,
+                });
+            });
+            cityContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(cityContainer);
+
+
+    </script>
+
+</body>
+
+</html>
