@@ -165,11 +165,12 @@
         
         // ===== 都市定義 =====
         const cities = {
-            TYO: { center: [139.7528, 35.6854], label: 'Tokyo' },
-            LON: { center: [-0.1281, 51.5081], label: 'London' },
-            NYC: { center: [-73.9855, 40.7582], label: 'New York' },
-            PAR: { center: [2.3553, 48.8810],  label: 'Paris' },
-            SIN: { center: [103.8513, 1.2830], label: 'Singapore' },
+            TOP: { center: [138.2906, 37.5873], label: 'TOP', zoom: 3, pitch: 0, bearing: 0 },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 7, pitch: 30, bearing: 0 },
+            LON: { center: [-0.1281, 51.5081], label: 'London', zoom: 7, pitch: 30, bearing: 0 },
+            NYC: { center: [-73.9855, 40.7582], label: 'New York', zoom: 7, pitch: 30, bearing: 0 },
+            PAR: { center: [2.3553, 48.8810],  label: 'Paris', zoom: 7, pitch: 30, bearing: 0 },
+            SIN: { center: [103.8513, 1.2830], label: 'Singapore', zoom: 7, pitch: 30, bearing: 0 },
         };
 
         // ===== 都市名ボタン生成 =====
@@ -202,7 +203,7 @@
             btn.addEventListener('click', () => {
                 map.flyTo({
                     center: city.center,
-                    zoom: 7,
+                    zoom: city.zoom,
                     pitch: 30,
                     bearing: 0,
                     duration: 3000,
