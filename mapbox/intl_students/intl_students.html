@@ -112,9 +112,9 @@
                 }
             });
 
-            // ##### 半径5,10,50kmのgeojsonを表示 ##### //
+            // ##### 半径5, 10, 20, 30, 40, 50kmのgeojsonを表示 ##### //
             // 半径レイヤー
-            const radii = [5, 10, 50];
+            const radii = [5, 10, 20, 30, 40, 50];
             radii.forEach(r => {
                 map.addSource(`radius_${r}km`, {
                     'type': 'geojson',
@@ -231,7 +231,7 @@
             gap: 10px;
         `;
 
-        const radii = [5, 10, 50];
+        const radii = [5, 10, 20, 30, 40, 50];
         radii.forEach(r => {
             const btn = document.createElement('button');
             btn.textContent = `${r}km`;
