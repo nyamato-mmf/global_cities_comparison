@@ -86,7 +86,38 @@
 
         map.on('load', () => {
 
-                        // LON
+            // 緑地ラスター(Mapbox Studioで作成)
+            // SIN
+            map.addSource('sin_green_coverage', {
+                'type': 'raster',
+                'url': 'mapbox://nyamato.79g3hdt3'
+            });
+
+            map.addLayer({
+                'id': 'sin_green_coverage',
+                'type': 'raster',
+                'source': 'sin_green_coverage',
+                'layout': {
+                    'visibility': 'visible'
+                },
+            });
+
+            // PAR
+            map.addSource('par_green_coverage', {
+                'type': 'raster',
+                'url': 'mapbox://nyamato.ckd67ll0'
+            });
+
+            map.addLayer({
+                'id': 'par_green_coverage',
+                'type': 'raster',
+                'source': 'par_green_coverage',
+                'layout': {
+                    'visibility': 'visible'
+                },
+            });
+
+            // LON
             map.addSource('lon_green_coverage', {
                 'type': 'raster',
                 'url': 'mapbox://nyamato.6tx2kscg'
