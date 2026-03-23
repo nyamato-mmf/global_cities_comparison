@@ -84,67 +84,27 @@
             });
         });
 
+        // ===== 緑地ラスター（半径10km）Mapboxでtilesetを作成 =====
         map.on('load', () => {
 
-            // 緑地ラスター(Mapbox Studioで作成)
-            // SIN
-            map.addSource('sin_green_coverage', {
-                'type': 'raster',
-                'url': 'mapbox://nyamato.79g3hdt3'
-            });
+            const rasterLayers = [
+                { id: 'sin_green_coverage', url: 'mapbox://nyamato.79g3hdt3' },
+                { id: 'par_green_coverage', url: 'mapbox://nyamato.ckd67ll0' },
+                { id: 'lon_green_coverage', url: 'mapbox://nyamato.6tx2kscg' },
+                { id: 'nyc_green_coverage', url: 'mapbox://nyamato.5r6lao13' },
+            ];
 
-            map.addLayer({
-                'id': 'sin_green_coverage',
-                'type': 'raster',
-                'source': 'sin_green_coverage',
-                'layout': {
-                    'visibility': 'visible'
-                },
-            });
-
-            // PAR
-            map.addSource('par_green_coverage', {
-                'type': 'raster',
-                'url': 'mapbox://nyamato.ckd67ll0'
-            });
-
-            map.addLayer({
-                'id': 'par_green_coverage',
-                'type': 'raster',
-                'source': 'par_green_coverage',
-                'layout': {
-                    'visibility': 'visible'
-                },
-            });
-
-            // LON
-            map.addSource('lon_green_coverage', {
-                'type': 'raster',
-                'url': 'mapbox://nyamato.6tx2kscg'
-            });
-
-            map.addLayer({
-                'id': 'lon_green_coverage',
-                'type': 'raster',
-                'source': 'lon_green_coverage',
-                'layout': {
-                    'visibility': 'visible'
-                },
-            });
-
-            // NYC
-            map.addSource('nyc_green_coverage', {
-                'type': 'raster',
-                'url': 'mapbox://nyamato.5r6lao13'
-            });
-
-            map.addLayer({
-                'id': 'nyc_green_coverage',
-                'type': 'raster',
-                'source': 'nyc_green_coverage',
-                'layout': {
-                    'visibility': 'visible'
-                },
+            rasterLayers.forEach(({ id, url }) => {
+                map.addSource(id, {
+                    type: 'raster',
+                    url: url
+                });
+                map.addLayer({
+                    id: id,
+                    type: 'raster',
+                    source: id,
+                    layout: { visibility: 'visible' }
+                });
             });
 
         });
