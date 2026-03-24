@@ -41,6 +41,11 @@
             color: white;
             font-size: 50px;
         }
+
+        .popupgreen_spots .mapboxgl-popup-content {
+            width: 800px;
+            font: 14px Arial, sans-serif;
+            }
     </style>
 </head>
 
@@ -107,6 +112,62 @@
                     layout: { visibility: 'visible' }
                 });
             });
+
+            /* --------------------------------------------------------
+            　ラグジュアリー・ホテル
+            -------------------------------------------------------- */
+            map.loadImage(
+                '../../img/marker-green.png',
+                (error, image) => {
+                    if (error) throw error;
+
+                    // Add the image to the map style.
+                    map.addImage('greenicon', image);
+
+                    // Add a data source containing several points' features.
+                    map.addSource('green_spots', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {'type': 'Feature', 'properties': {'name': 'The Ritz-Carlton, Millenia Singapore', 'description': '<strong>The Ritz-Carlton, Millenia Singapore</strong><p><img src="../../img/green_spots/The Ritz-Carlton, Millenia Singapore.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [103.8601209, 1.2909687]}},
+                            ]
+                        }
+                    });
+
+                    // Add a layer to use the image to represent the data.
+                    map.addLayer({
+                        'id': 'green_spots',
+                        'type': 'symbol',
+                        'source': 'green_spots', // reference the data source
+                        'layout': {
+                            'icon-image': 'greenicon', // reference the image
+                            'icon-size': 1,
+                            'visibility': 'visible'
+                        },
+                    });
+                    // On click, get coordinates and a description.
+                    map.on('click', 'green_spots', (e) => {
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+                        // Create a popup object
+                        new mapboxgl.Popup({className: 'popupgreen_spots'})
+                            .setLngLat(coordinates)
+                            .setHTML(description)
+                            .addTo(map);
+                    });
+                    map.on('mouseenter', 'green_spots', () => {
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
+                    map.on('mouseleave', 'green_spots', () => {
+                        map.getCanvas().style.cursor = '';
+                    });
+                }
+            );
 
         });
         
