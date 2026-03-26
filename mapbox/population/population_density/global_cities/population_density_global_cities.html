@@ -122,9 +122,11 @@
 
                 // ===== ポップアップ表示 =====
                 map.on('click', layerId, (e) => {
-                    const feature   = e.features[0];
-                    const popupName  = feature.properties.name1   || 'N/A';
-                    const popupValue = feature.properties['Density'] || '';
+                    const feature    = e.features[0];
+                    const popupName  = feature.properties.name1 || 'N/A';
+                    const popupValue = feature.properties['Density'] !== undefined
+                        ? Math.round(feature.properties['Density']).toLocaleString('ja-JP')
+                        : 'N/A';
                     const popupUnit  = '人/km²';
 
                     new mapboxgl.Popup({ closeButton: true })

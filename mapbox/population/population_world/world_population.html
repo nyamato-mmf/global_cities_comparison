@@ -113,8 +113,11 @@
                 map.on('click', 'world_population', (e) => {
                     const feature = e.features[0];
                     const popupName  = feature.properties.WB_NAME  || 'N/A';
-                    const popupValue = feature.properties.POP_EST || '';
-                    const popupUnit  = '人';
+                    const rawPop     = feature.properties.POP_EST;
+                    const popupValue = rawPop !== undefined && rawPop !== ''
+                        ? (rawPop / 1_000_000).toFixed(2)
+                        : 'N/A';
+                    const popupUnit  = '百万人';
 
                     new mapboxgl.Popup({ closeButton: true })
                         .setLngLat(e.lngLat)
