@@ -49,8 +49,8 @@
     <!-- Sidebar -->
     <div id="sidebar">
         <h2 class="indicator-title">観光スポット</h2>
-        <p style="color: black; font-size: 16pt;">(レビュー数: 1000以上)</p>
-        <p style="font-size: small; color: black;">出典: TripAdvisor</p>
+        <p style="color: white; font-size: 16pt;">(レビュー数: 1000以上)</p>
+        <p style="font-size: small; color: white;">出典: TripAdvisor</p>
     </div>
 
     <div id="map"></div>
@@ -109,8 +109,8 @@
                         150000, 50 // Maximum value (10) maps to a circle radius of 20
                     ],
                     'circle-stroke-width': 1,
-                    'circle-color': 'blue',
-                    'circle-opacity': 0.5,
+                    'circle-color': 'yellow',
+                    'circle-opacity': 0.8,
                     'circle-stroke-color': 'white',
                 }
             });
@@ -148,12 +148,13 @@
                 
                 const coordinates = e.features[0].geometry.coordinates.slice();      
                 const description = e.features[0].properties["Spot"];
+                const reviews = e.features[0].properties["Reviews"].toLocaleString();
                 
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
                 
-                popup.setLngLat(coordinates).setHTML(description).addTo(map);
+                popup.setLngLat(coordinates).setHTML(`<h3>${description}</h3><p>レビュー数: ${reviews}</p>`).addTo(map);
             });
             
             map.on('mouseleave', 'tourist_attractions-layer', () => {
