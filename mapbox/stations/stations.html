@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Cities Comparison</title>
+    <!-- mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-popup-content .popup-content {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ===== sidebar ===== */
+        #sidebar {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: auto;
+            padding: 20px;
+        }
+
+        .indicator-title {
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2 class="indicator-title">公共交通（駅）</h2>
+        <p style="font-size: small; color: white;">半径10km圏内</p>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // 環境に応じてトークンを切り替える
+        const isDev = window.location.hostname === 'localhost' 
+                || window.location.hostname === '127.0.0.1';
+
+        const MAPBOX_TOKEN = isDev
+        ? 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJja2Y4dzNkOW8wY3MwMnFvM29iNnJzNzVzIn0.GHlHwu3r5YjKBU3qAKvccQ'    // 開発用
+        : 'pk.eyJ1IjoibnlhbWF0byIsImEiOiJjbWxvdWE5cnUwOHQyM2Rxems3ZHFjNHRtIn0.FE09FM6lxL7dZSJtsLAFEg';   // 本番用 (GitHub Pages)
+
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            projection: 'globe',
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
+            center: [138.2906, 37.5873],
+        });
+
+        map.on('style.load', () => {
+            map.setFog({
+                color: 'rgb(186, 210, 235)',
+                'high-color': 'rgb(36, 92, 223)',
+                'horizon-blend': 0.02,
+                'space-color': 'rgb(11, 11, 25)',
+                'star-intensity': 0.6
+            });
+        });
+
+        map.on('load', () => {
+
+            //##### 指標データ #####//
+            map.addSource('stations', {
+                type: 'geojson',
+                // Use a URL for the value for the `data` property.
+                data: './geojson/stations_2020.geojson'
+            });
+
+            map.addLayer({
+                'id': 'stations-layer',
+                'type': 'circle',
+                'source': 'stations',
+                'paint': {
+                    'circle-radius': 5,
+                    'circle-stroke-width': 1,
+                    'circle-color': 'blue',
+                    'circle-stroke-color': 'white'
+                }
+            });
+
+            // ##### 半径5,10,20,30,40,50kmのgeojsonを表示 ##### //
+            // 半径レイヤー
+            const radii = [5, 10, 20, 30, 40, 50];
+            radii.forEach(r => {
+                map.addSource(`radius_${r}km`, {
+                    'type': 'geojson',
+                    'data': `../geojson_common/radius_${r}km.geojson`
+                });
+                map.addLayer({
+                    'id': `radius_${r}km`,
+                    'type': 'line',
+                    'source': `radius_${r}km`,
+                    'layout': { 'visibility': 'none' }, // 初期非表示
+                    'paint': {
+                        'line-color': 'white',
+                        'line-width': 1.5,
+                        'line-dasharray': [2, 2],
+                    },
+                });
+            });
+
+            // ===== ポップアップ表示 ===== 
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+            
+            map.on('mouseenter', 'high_class_hotels-layer', (e) => {
+                
+                map.getCanvas().style.cursor = 'pointer';
+                
+                const coordinates = e.features[0].geometry.coordinates.slice();      
+                const description = e.features[0].properties["Name"];
+                
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+                
+                popup.setLngLat(coordinates).setHTML(description).addTo(map);
+            });
+            
+            map.on('mouseleave', 'high_class_hotels-layer', () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+            });
+
+        });
+        
+        // ===== 都市定義 =====
+        const cities = {
+            GLOBE: { center: [138.2906, 37.5873], label: 'Globe', zoom: 3, pitch: 0, bearing: 0 },
+            TYO: { center: [139.7528, 35.6854], label: 'Tokyo', zoom: 12, pitch: 0, bearing: 0 },
+            LON: { center: [-0.1281, 51.5081], label: 'London', zoom: 12, pitch: 0, bearing: 0 },
+            NYC: { center: [-73.9855, 40.7582], label: 'New York', zoom: 12, pitch: 0, bearing: 0 },
+            PAR: { center: [2.34732386, 48.854872],  label: 'Paris', zoom: 12, pitch: 0, bearing: 0 },
+            SIN: { center: [103.8513, 1.2830], label: 'Singapore', zoom: 12, pitch: 0, bearing: 0 },
+        };
+
+        // ===== 都市名ボタン生成 =====
+        const cityContainer = document.createElement('div');
+        cityContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        Object.entries(cities).forEach(([code, city]) => {
+            const btn = document.createElement('button');
+            btn.textContent = code;
+            btn.style.cssText = `
+                padding: 8px 16px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('mouseover', () => btn.style.background = 'rgba(255,255,255,0.2)');
+            btn.addEventListener('mouseout',  () => btn.style.background = 'rgba(0,0,0,0.6)');
+            btn.addEventListener('click', () => {
+                map.flyTo({
+                    center: city.center,
+                    zoom: city.zoom,
+                    pitch: city.pitch,
+                    bearing: city.bearing,
+                    duration: 3000,
+                    essential: true,
+                });
+            });
+            cityContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(cityContainer);
+
+        // ===== 半径トグルボタン =====
+        const radiusContainer = document.createElement('div');
+        radiusContainer.style.cssText = `
+            position: absolute;
+            z-index: 2;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        `;
+
+        const radii = [5, 10, 20, 30, 40, 50];
+        radii.forEach(r => {
+            const btn = document.createElement('button');
+            btn.textContent = `${r}km`;
+            btn.dataset.active = 'false';
+            btn.style.cssText = `
+                padding: 4px 8px;
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                border: 1px solid white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+            `;
+            btn.addEventListener('click', () => {
+                const isActive = btn.dataset.active === 'true';
+                map.setLayoutProperty(
+                    `radius_${r}km`,
+                    'visibility',
+                    isActive ? 'none' : 'visible'
+                );
+                btn.dataset.active = isActive ? 'false' : 'true';
+                btn.style.background = isActive ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.3)';
+            });
+            radiusContainer.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(radiusContainer);
+
+    </script>
+
+</body>
+
+</html>
