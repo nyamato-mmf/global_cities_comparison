@@ -48,8 +48,9 @@
 
     <!-- Sidebar -->
     <div id="sidebar">
-        <h2 class="indicator-title">ハイクラスホテル</h2>
-        <p style="font-size: small; color: white;">出典: Hotels.com</p>
+        <h2 class="indicator-title">観光スポット</h2>
+        <p style="color: black; font-size: 16pt;">(レビュー数: 1000以上)</p>
+        <p style="font-size: small; color: black;">出典: TripAdvisor</p>
     </div>
 
     <div id="map"></div>
@@ -88,21 +89,29 @@
         map.on('load', () => {
 
             //##### 指標データ #####//
-            map.addSource('high_class_hotels', {
+            map.addSource('tourist_attractions', {
                 type: 'geojson',
                 // Use a URL for the value for the `data` property.
-                data: './geojson/high_class_hotels.geojson' 
+                data: './geojson/tourist_attractions.geojson' 
             });
 
             map.addLayer({
-                'id': 'high_class_hotels-layer',
+                'id': 'tourist_attractions-layer',
                 'type': 'circle',
-                'source': 'high_class_hotels',
+                'source': 'tourist_attractions',
                 'paint': {
-                    'circle-radius': 5,
+                    // Adjust circle radius based on the 'radius' property in the GeoJSON file
+                    'circle-radius': [
+                        'interpolate', 
+                        ['linear'], 
+                        ['get', 'Reviews'], 
+                        1000, 5,  // Minimum value (1) maps to a circle radius of 2
+                        150000, 50 // Maximum value (10) maps to a circle radius of 20
+                    ],
                     'circle-stroke-width': 1,
-                    'circle-color': 'pink',
-                    'circle-stroke-color': 'white'
+                    'circle-color': 'blue',
+                    'circle-opacity': 0.5,
+                    'circle-stroke-color': 'white',
                 }
             });
 
@@ -133,12 +142,12 @@
                 closeOnClick: false
             });
             
-            map.on('mouseenter', 'high_class_hotels-layer', (e) => {
+            map.on('mouseenter', 'tourist_attractions-layer', (e) => {
                 
                 map.getCanvas().style.cursor = 'pointer';
                 
                 const coordinates = e.features[0].geometry.coordinates.slice();      
-                const description = e.features[0].properties["Name"];
+                const description = e.features[0].properties["Spot"];
                 
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -147,7 +156,7 @@
                 popup.setLngLat(coordinates).setHTML(description).addTo(map);
             });
             
-            map.on('mouseleave', 'high_class_hotels-layer', () => {
+            map.on('mouseleave', 'tourist_attractions-layer', () => {
             map.getCanvas().style.cursor = '';
             popup.remove();
             });
