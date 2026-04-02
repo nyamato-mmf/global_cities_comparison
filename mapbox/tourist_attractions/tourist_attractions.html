@@ -41,6 +41,12 @@
             color: white;
             font-size: 50px;
         }
+
+        .popupattraction_spots .mapboxgl-popup-content {
+            width: 400px;
+            font: 14px Arial, sans-serif;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -114,6 +120,78 @@
                     'circle-stroke-color': 'white',
                 }
             });
+
+            
+            /* --------------------------------------------------------
+            　観光スポットのポイントデータを追加
+            -------------------------------------------------------- */
+            map.loadImage(
+                '../../img/marker-attraction.png',
+                (error, image) => {
+                    if (error) throw error;
+
+                    // Add the image to the map style.
+                    map.addImage('attractionicon', image);
+
+                    // Add a data source containing several points' features.
+                    map.addSource('attraction_spots', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                                'features': [
+                                    {'type': 'Feature', 'properties': {'name': 'Central Park New York', 'description': '<strong>Central Park New York</strong><p><img src="../../img/tourist_attractions/Central Park New York.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-73.9655834, 40.7825547]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Big Ben London', 'description': '<strong>Big Ben London</strong><p><img src="../../img/tourist_attractions/Big Ben London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-0.1246254, 51.50072919999999]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Merlion Park Singapore', 'description': '<strong>Merlion Park Singapore</strong><p><img src="../../img/tourist_attractions/Merlion Park Singapore.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [103.8543872, 1.2867449]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Eiffel Tower Paris', 'description': '<strong>Eiffel Tower Paris</strong><p><img src="../../img/tourist_attractions/Eiffel Tower Paris.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [2.2944813, 48.85837009999999]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Notre Dame Paris', 'description': '<strong>Notre Dame Paris</strong><p><img src="../../img/tourist_attractions/Notre Dame Paris.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [2.3499021, 48.85296820000001]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Tower Bridge London', 'description': '<strong>Tower Bridge London</strong><p><img src="../../img/tourist_attractions/Tower Bridge London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-0.0753564999999999, 51.5054564]}},
+                                    {'type': 'Feature', 'properties': {'name': 'British Museum London', 'description': '<strong>British Museum London</strong><p><img src="../../img/tourist_attractions/British Museum London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-0.1269566, 51.5194133]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Gardens by the Bay Singapore', 'description': '<strong>Gardens by the Bay Singapore</strong><p><img src="../../img/tourist_attractions/Gardens by the Bay Singapore.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [103.8636132, 1.2815683]}},
+                                    {'type': 'Feature', 'properties': {'name': 'London Eye London', 'description': '<strong>London Eye London</strong><p><img src="../../img/tourist_attractions/London Eye London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-0.1195192, 51.5031864]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Louvre Museum London', 'description': '<strong>Louvre Museum London</strong><p><img src="../../img/tourist_attractions/Louvre Museum London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [2.337644, 48.8606111]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Arc de Triomphe Paris', 'description': '<strong>Arc de Triomphe Paris</strong><p><img src="../../img/tourist_attractions/Arc de Triomphe Paris.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [2.2950275, 48.8737917]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Rockefeller Center New York', 'description': '<strong>Rockefeller Center New York</strong><p><img src="../../img/tourist_attractions/Rockefeller Center New York.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-73.9786736, 40.7587402]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Statue of Liberty New York', 'description': '<strong>Statue of Liberty New York</strong><p><img src="../../img/tourist_attractions/Statue of Liberty New York.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-74.04450039999999, 40.6892494]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Tower of London', 'description': '<strong>Tower of London</strong><p><img src="../../img/tourist_attractions/Tower of London.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-0.0759493, 51.50811239999999]}},
+                                    {'type': 'Feature', 'properties': {'name': "Musee d'Orsay Paris", 'description': '<strong>Musee d\'Orsay Paris</strong><p><img src="../../img/tourist_attractions/Musee d\'Orsay Paris.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [2.3265614, 48.8599614]}},
+                                    {'type': 'Feature', 'properties': {'name': 'Empire State Building New York', 'description': '<strong>Empire State Building New York</strong><p><img src="../../img/tourist_attractions/Empire State Building New York.jpg"></img></p>'}, 'geometry': {'type': 'Point', 'coordinates': [-73.98566439999999, 40.7484405]}},
+                                ]
+                        }
+                    });
+
+                    // Add a layer to use the image to represent the data.
+                    map.addLayer({
+                        'id': 'attraction_spots',
+                        'type': 'symbol',
+                        'source': 'attraction_spots', // reference the data source
+                        'layout': {
+                            'icon-image': 'attractionicon', // reference the image
+                            'icon-size': 1,
+                            'visibility': 'visible'
+                        },
+                    });
+                    // On click, get coordinates and a description.
+                    map.on('click', 'attraction_spots', (e) => {
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const description = e.features[0].properties.description;
+
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+                        // Create a popup object
+                        new mapboxgl.Popup({className: 'popupattraction_spots'})
+                            .setLngLat(coordinates)
+                            .setHTML(description)
+                            .addTo(map);
+                    });
+                    map.on('mouseenter', 'attraction_spots', () => {
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
+                    map.on('mouseleave', 'attraction_spots', () => {
+                        map.getCanvas().style.cursor = '';
+                    });
+                }
+            );
 
             // ##### 半径5,10,20,30,40,50kmのgeojsonを表示 ##### //
             // 半径レイヤー
